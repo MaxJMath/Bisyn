@@ -1,0 +1,359 @@
+\documentclass[10pt]{amsart}
+\usepackage[letterpaper,margin=1in,footskip=0.25in]{geometry}
+
+
+%\usepackage{garamondlibre}
+\usepackage{times}
+%\usepackage{CormorantGaramond}
+%\usepackage{baskervald}
+\usepackage{microtype}
+\usepackage{eucal}
+\usepackage{setspace}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=nyt, maxbibnames=20, maxalphanames=99
+]{biblatex}
+%\usepackage{pdfpages}
+
+\addbibresource{refs.bib}
+
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{mathabx}
+\makeatletter
+  \newcommand{\supsize}{%
+    \expandafter\ifx\csname S@\f@size\endcsname\relax
+      \calculate@math@sizes
+    \fi
+    \csname S@\f@size\endcsname
+    \fontsize\sf@size\z@\selectfont
+  }
+  \DeclareRobustCommand{\tsup}[1]{%
+    \leavevmode\raise.9ex\hbox{\supsize #1}%
+  }
+  \DeclareTextSymbolDefault{\textprimechar}{OMS}
+  \DeclareTextSymbol{\textprimechar}{OMS}{48}
+  \DeclareRobustCommand{\tprime}{\tsup{\textprimechar}}
+  \ProvideTextCommandDefault{\cprime}{\tprime}
+\makeatother
+
+
+\usepackage{enumitem}
+\setlist{noitemsep}
+
+\usepackage[pdfusetitle,colorlinks]{hyperref}
+\hypersetup{allcolors=blue}
+\usepackage[capitalise,noabbrev]{cleveref}
+\crefformat{equation}{\ensuremath{(#2#1#3)}}
+\crefmultiformat{equation}{\ensuremath{(#2#1#3)}}{ and~\ensuremath{(#2#1#3)}}{, \ensuremath{(#2#1#3)}}{, and~\ensuremath{(#2#1#3)}}
+
+\theoremstyle{definition}
+
+\numberwithin{figure}{section}
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}[figure]{Theorem}
+\newtheorem{lemma}[figure]{Lemma}
+\newtheorem{construction}[figure]{Construction}
+
+\newtheorem{corollary}[figure]{Corollary}
+\newtheorem{proposition}[figure]{Proposition}
+\newtheorem{definition}[figure]{Definition}
+\newtheorem{notation}[figure]{Notation}
+\newtheorem{exercise}[figure]{Exercise}
+\newtheorem{remark}[figure]{Remark}
+\newtheorem{example}[figure]{Example}
+\newtheorem{conjecture}[figure]{Conjecture}
+
+\newtheorem{thm}[figure]{Theorem}
+\newtheorem{var}[figure]{Variant}
+\newtheorem{lem}[figure]{Lemma}
+\newtheorem{cons}[figure]{Construction}
+
+\newtheorem{cor}[figure]{Corollary}
+\newtheorem{prop}[figure]{Proposition}
+\newtheorem{defn}[figure]{Definition}
+\newtheorem{notn}[figure]{Notation}
+\newtheorem{rem}[figure]{Remark}
+
+\newcommand{\op}{\mathrm{op}}
+
+\newcommand{\poly}[1]{{#1}[x_1,\ldots,x_n]}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\mm}{\mathbf{m}}
+\newcommand{\mbfa}{\mathbf{A}}
+\newcommand{\sX}{\mathscr{X}}
+\newcommand{\sY}{\mathscr{Y}}
+\newcommand{\sch}{\operatorname{Sch}}
+\newcommand{\GG}{\mathbf{G}}
+\newcommand{\BB}{\mathbf{B}}
+\newcommand{\pic}{\operatorname{Pic}}
+
+\newcommand{\MU}{\mathrm{MU}}
+\newcommand{\BP}{\mathrm{BP}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\BU}{\mathrm{BU}}
+
+
+\newcommand{\gr}{\mathrm{gr}}
+\newcommand{\fil}{\mathrm{fil}}
+
+\newcommand{\BGL}{\mathrm{BGL}}
+\newcommand{\Thick}{\mathrm{Thick}}
+\newcommand{\Th}{\mathrm{Th}}
+\newcommand{\Ext}{\operatorname{Ext}}
+
+\newcommand{\spaces}{\mathcal{S}}
+\newcommand{\one}{\mathrm{1}}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\wt}{\mathrm{wt}}
+\newcommand{\unfinished}{\textcolor{red}{INCOMPLETE }}
+\newcommand{\done}{\textcolor{green}{DONE }}
+
+\newcommand{\anss}{{}^{\mathrm{an}}\mathrm{E}}
+\newcommand{\genanss}{{}^{\mathrm{F}}\mathrm{E}}
+
+\newcommand{\mayss}{{}^{\mathrm{may}}\mathrm{E}}
+\newcommand{\vlines}{\mathrm{VL}}
+\newcommand{\page}{\mathrm{page}}
+\newcommand{\intercept}{\mathrm{incpt}}
+
+\newcommand{\kos}[1]{\mathbf{K}_\bullet(\mathbf{#1})}
+
+
+
+\newcommand{\ass}{\operatorname{Ass}}
+\newcommand{\spec}{\operatorname{Spec}}
+\newtheoremstyle{cited}{.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}{.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}{\itshape}{}{\bfseries}{\bfseries .}{5pt plus 1pt minus 1pt}{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont #3}}
+\theoremstyle{cited}
+\newtheorem{citedthm}[figure]{Theorem}
+\newtheorem{citedprop}[figure]{Proposition}
+\newtheorem{citedcor}[figure]{Corollary}
+
+%Operators
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand{\isom}{\operatorname{Isom}}
+\newcommand{\sets}{\operatorname{Sets}}
+\newcommand{\htensor}{\hat{\otimes}}
+
+%Objects
+\newcommand{\tensor}{\otimes}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\aff}{\mathbb{A}}
+\newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\ess}{\operatorname{Es}/S}
+
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bS}{\mathbb{S}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+
+%Maps
+\newcommand{\qcoh}[1]{\operatorname{Qcoh}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\der}[3]{\textrm{Der}_{#1}(#2,#3)}
+
+\newcommand{\affs}{\operatorname{Aff}/S}
+\newcommand{\ev}{\operatorname{ev}}
+\newcommand{\alg}{\operatorname{Alg}}
+\newcommand{\cech}{\operatorname{Cech}}
+\newcommand{\tot}{\operatorname{Tot}}
+\newcommand{\Fun}{\operatorname{Fun}}
+\newcommand{\fun}{\Fun}
+
+\newcommand{\CAlg}{\operatorname{CAlg}}
+\newcommand{\PSigma}{\operatorname{P}_{\Sigma}}
+
+\newcommand{\sCAlg}{\operatorname{sCAlg}}
+\renewcommand{\poly}{\mathrm{poly}}
+\newcommand{\colim}{\operatorname{colim}}
+\newcommand{\cof}{\operatorname{cof}}
+
+\newcommand{\HH}{\operatorname{HH}}
+\newcommand{\THH}{\operatorname{THH}}
+
+\newcommand{\Fil}{\mathrm{fil}}
+%Arrows
+\newcommand{\longisoto}{\overset{\sim}{\longrightarrow}}
+\newcommand{\spm}{\operatorname{Spm}}
+
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\Nm}{\operatorname{Nm}}
+
+\newcommand{\PrL}{\mathrm{Pr}^{\mathrm{L}}}
+\newcommand{\Ab}{\mathrm{Ab}}
+\newcommand{\Sp}{{\mathcal{S}\mathrm{p}}}
+\newcommand{\Mod}{\mathrm{Mod}}
+
+\newcommand{\HE}{\mathcal{H}\mathrm{Env}}
+\newcommand{\HESt}{\HE^{\Sp}}
+\newcommand{\Map}{\mathrm{Map}}
+
+
+\newcommand{\Cond}{\mathrm{Cond}}
+\newcommand{\Condbar}{\mathbf{Cond}}
+\newcommand{\Cat}{\mathrm{Cat}_\infty}
+\newcommand{\proet}{\text{pro-et}}
+\newcommand{\pep}{\ast_{\proet}}
+\newcommand{\Sh}{\mathrm{Sh}}
+\newcommand{\KCond}{\mathrm{K}^{\text{c}}}
+\newcommand{\LCA}{\mathrm{LCA}}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\PerfCat}{\mathrm{PerfCat}}
+\newcommand{\lc}{\mathrm{lc}}
+\newcommand{\K}{\mathrm{K}}
+\newcommand{\LCAbar}{\mathbf{LCA}}
+
+\newcommand{\Condf}[1]{\mathbf{#1}}
+
+\newcommand{\bfC}{\mathbf{C}}
+\newcommand{\bfD}{\mathbf{D}}
+\newcommand{\CondFun}{\Condf{Fun}}
+\newcommand{\CondCat}{\Condf{Cat}}
+\newcommand{\cond}{\text{c}}
+\newcommand{\CondD}{\Condf{D}}
+\newcommand{\CondPerf}{\Condf{Perf}}
+\newcommand{\CondLCA}{\Condf{LCA}}
+\newcommand{\CondCone}{\Condf{cone}}
+\newcommand{\CondK}{\Condf{K}}
+\newcommand{\Condpi}{\Condf{\varpi}}
+
+\newcommand{\Gal}{\mathrm{Gal}}
+\newcommand{\dKSel}{\mathrm{dK}^{\mathrm{Sel}}}
+
+
+\newcommand{\maxnote}[1]{\textcolor{blue}{#1}}
+\newcommand{\peternote}[1]{\textcolor{orange}{#1}}
+
+\newcommand{\cb}{\mathrm{cb}}
+
+\newcommand{\fp}{\mathrm{fp}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Syn}{\mathcal{S}\mathrm{yn}}
+\newcommand{\Bisyn}{\mathcal{B}\mathrm{isyn}}
+\newcommand{\Stable}{\mathcal{S}\mathrm{table}}
+\newcommand{\loc}{\mathrm{loc}}
+
+\begin{document}
+
+\title{Bisynthetic Spectra}
+\author{Maxwell Johnson and Peter Marek}
+
+\maketitle
+
+\section{Recollections on Synthetic Spectra}
+
+\begin{definition}
+  Given $E$ any spectrum and $X$ a finite spectrum, $X$ is said to be $E$-finite projective if $E_*X$ is finitely generated and projective over $E_*$. We denote the full subcategory of spectra spanned by such $\Sp^\fp_E$. A map $X\to Y$ in $\Sp^\fp_E$ is said to be a cover if it is an epimorphism after taking $E$-homology.
+\end{definition}
+
+\begin{definition}
+  A site $\cC$ which is additive is said to be in addition excellent if it is equipped with a symmetric monoidal structure such that all objects admit duals and such that the functors $-\otimes c$ preserve covers for all $c\in \cC$.
+\end{definition}
+
+\begin{lemma}
+  The category $\Sp^\fp_E$ is additive and acquires the structure of a site with the covering families given by singletons of $E$-epimorphisms as above. Equipped with the smash product of spectra, it is excellent.
+\end{lemma}
+
+
+\begin{definition}
+  A spectrum $E$ is said to be Adams-type if there exists a filtered diagram $X_\alpha$ such that each $X_\alpha$ is in $\Sp^\fp_E$ and such that the natural map $E^*X_\alpha\to \Hom_{E_*}(E_*X_\alpha, E_*)$ is an isomorphism.
+\end{definition}
+
+\begin{definition}
+  A presheaf $F:\cC^\op \to \cD$ on a category with finite coproducts is said to be spherical if for all $c,c'\in \cC$ the natural map $F(c\amalg c')\to F(c)\times F(c')$ is an equivalence, i.e., if $F$ preserves finite products as a covariant functor on $\cC^\op$.
+\end{definition}
+
+\begin{definition}
+  The category $\Syn_E$ of synthetic spectra is the category of spherical presheaves of spectra on the excellent site $\Sp^\fp_E$.
+\end{definition}
+
+
+
+\section{The Bisynthetic Model}
+
+\subsection{Synthetic finite projectives}
+
+\begin{definition}
+  Given $F,X\in \Syn_E$ we say that $X$ is $F$-finite projective if it compact as a synthetic spectrum and if $F_{*,*}X:=\pi_{*,*}(F\otimes X)$ is a finitely generated projective module over $F_{*,*}:=\pi_{*,*}F$. We denote the full subcategory of $F$-finite projectives $(\Syn_E)_F^\fp$. A map $X\to Y$ of $F$-finite projectives is said to be a cover if it is an epimorphism after applying taking $F$-homology.
+\end{definition}
+
+\begin{lemma}
+  The category $\Syn_F^\fp$ is an additive site when equipped with the covering families consisting of single $F_{*,*}$-epimorphisms.
+\end{lemma}
+
+\begin{proof}
+  The proof is identical to \cite[Lemma 3.22]{piotr}.
+\end{proof}
+
+\begin{lemma}
+  Equipped with the tensor product of synthetic spectra, $(\Syn_E)_F^\fp$ is excellent.
+\end{lemma}
+
+\begin{proof}
+  all these proofs look like the one in piotrs paper goes through identically, but I am going to come back to that later.
+\end{proof}
+
+\section{Special and Generic fibers over $\lambda$ and $\tau$}
+
+\subsection{The $\lambda$-generic fiber}
+
+\begin{theorem}
+  The subcategory of $\lambda$-local objects in $\Bisyn$ is canonically equivalent to $\Syn_E$.
+\end{theorem}
+
+\subsection{The $\lambda$-special fiber}
+
+\begin{theorem}
+  The category $\Mod(\Bisyn, \bS/\lambda)$ is a full subcategory of $\Stable(\nu F_{*,*}\nu F)$ which is an equivalence if (???). Restricted to the image of $\nu_F$, this equivalence takes an $E$-synthtetic spectrum to its $\nu F$-homology.
+\end{theorem}
+
+\subsection{The $\tau$-generic fiber}
+
+\begin{proposition}
+  The subcategory of $\tau$-local objects in $\Bisyn$ is equivalent to the category of spherical sheaves on the site $(\Syn_E)^{\tau-\loc}_{\nu F}$.
+\end{proposition}
+
+\begin{theorem}
+  There is an equivalence of spherical sheaves over $(\Syn_E)^{\tau-\loc}_{\nu F}$ and $\Sp^\fp_F$. As a result, the category of $\tau$-local bisynthetic spectra is equivalent to $\Syn_F$.
+\end{theorem}
+
+\subsection{The $\tau$-special fiber}
+
+\maxnote{I have no idea what to do for this at the moment, would love any ideas.}
+
+\end{document}
