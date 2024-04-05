@@ -344,6 +344,30 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 
 \subsection{The $\tau$-generic fiber}
 
+\begin{notation}
+  We will write $(\Syn_E)^{\tau-\loc}_F$ for the site $(\Syn_E)_{\tau^{-1}F}^\fp$.
+\end{notation}
+
+\begin{lemma}
+  The functor $\tau^{-1}$ induces a morphism of excellent sites $(\Syn_E)^\fp_{F}\to (\Syn_E)^{\tau-\loc}_F$.
+\end{lemma}
+
+\begin{proof}
+  Because the category of $\tau$-local synthetic spectra is a smashing localization, inverting $\tau$ preserves compact objects. Then note that there is an equivalence $\tau^{-1}F\otimes \tau^{-1}X\simeq \tau^{-1}(F\otimes X)$, so that we can compute:
+  \[
+  (\tau^{-1}F)_{*,*}X \cong F_{*,*}X[\tau^{-1}]  
+  \]
+  and if $F_{*,*}X$ is finitely generated and projective over $F_{*,*}$, then $F_{*,*}X[\tau^{-1}]$ will be finitely generated and projective over $F_{*,*}[\tau^{-1}]\cong (\tau^{-1}F)_{*,*}$ and this process will also preserve epimorphisms. Because the relevant pullbacs in both sites are computed in $\Syn_E$ they are also pushouts and the left adjoint $\tau^{-1}$ will preserve them. The symmetric monoidality of $\tau^{-1}$ shows that this morphism of sites upgrades to one of excellent sites. 
+\end{proof}
+
+\begin{lemma}
+  In the induced adjunction $F:\Bisyn \to \Sh_{\Sigma}((\Syn_E)^\{\tau-\loc}_F):G$, the right adjoint $G$ is cocontinuous, $G(X)$ is $\tau$-local for all $X$, and the essential image consists of all $\tau$-local bisynthetic spectra.
+\end{lemma}
+
+\begin{proof}
+  
+\end{proof}
+
 \begin{proposition}
   The subcategory of $\tau$-local objects in $\Bisyn$ is equivalent to the category of spherical sheaves on the site $(\Syn_E)^{\tau-\loc}_{\nu F}$.
 \end{proposition}
