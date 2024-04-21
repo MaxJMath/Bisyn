@@ -1,0 +1,463 @@
+\documentclass[10pt]{amsart}
+\usepackage[letterpaper,margin=1in,footskip=0.25in]{geometry}
+
+
+%\usepackage{garamondlibre}
+\usepackage{times}
+%\usepackage{CormorantGaramond}
+%\usepackage{baskervald}
+\usepackage{microtype}
+\usepackage{eucal}
+\usepackage{setspace}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=nyt, maxbibnames=20, maxalphanames=99
+]{biblatex}
+%\usepackage{pdfpages}
+
+\addbibresource{refs.bib}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{mathabx}
+\makeatletter
+  \newcommand{\supsize}{%
+    \expandafter\ifx\csname S@\f@size\endcsname\relax
+      \calculate@math@sizes
+    \fi
+    \csname S@\f@size\endcsname
+    \fontsize\sf@size\z@\selectfont
+  }
+  \DeclareRobustCommand{\tsup}[1]{%
+    \leavevmode\raise.9ex\hbox{\supsize #1}%
+  }
+  \DeclareTextSymbolDefault{\textprimechar}{OMS}
+  \DeclareTextSymbol{\textprimechar}{OMS}{48}
+  \DeclareRobustCommand{\tprime}{\tsup{\textprimechar}}
+  \ProvideTextCommandDefault{\cprime}{\tprime}
+\makeatother
+
+
+\usepackage{enumitem}
+\setlist{noitemsep}
+
+\usepackage[pdfusetitle,colorlinks]{hyperref}
+\hypersetup{allcolors=blue}
+\usepackage[capitalise,noabbrev]{cleveref}
+\crefformat{equation}{\ensuremath{(#2#1#3)}}
+\crefmultiformat{equation}{\ensuremath{(#2#1#3)}}{ and~\ensuremath{(#2#1#3)}}{, \ensuremath{(#2#1#3)}}{, and~\ensuremath{(#2#1#3)}}
+
+\theoremstyle{definition}
+
+\numberwithin{figure}{section}
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}[figure]{Theorem}
+\newtheorem{lemma}[figure]{Lemma}
+\newtheorem{construction}[figure]{Construction}
+
+\newtheorem{corollary}[figure]{Corollary}
+\newtheorem{proposition}[figure]{Proposition}
+\newtheorem{definition}[figure]{Definition}
+\newtheorem{notation}[figure]{Notation}
+\newtheorem{exercise}[figure]{Exercise}
+\newtheorem{remark}[figure]{Remark}
+\newtheorem{example}[figure]{Example}
+\newtheorem{conjecture}[figure]{Conjecture}
+
+\newtheorem{thm}[figure]{Theorem}
+\newtheorem{var}[figure]{Variant}
+\newtheorem{lem}[figure]{Lemma}
+\newtheorem{cons}[figure]{Construction}
+
+\newtheorem{cor}[figure]{Corollary}
+\newtheorem{prop}[figure]{Proposition}
+\newtheorem{defn}[figure]{Definition}
+\newtheorem{notn}[figure]{Notation}
+\newtheorem{rem}[figure]{Remark}
+
+\newcommand{\op}{\mathrm{op}}
+
+\newcommand{\poly}[1]{{#1}[x_1,\ldots,x_n]}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\mm}{\mathbf{m}}
+\newcommand{\mbfa}{\mathbf{A}}
+\newcommand{\sX}{\mathscr{X}}
+\newcommand{\sY}{\mathscr{Y}}
+\newcommand{\sch}{\operatorname{Sch}}
+\newcommand{\GG}{\mathbf{G}}
+\newcommand{\BB}{\mathbf{B}}
+\newcommand{\pic}{\operatorname{Pic}}
+
+\newcommand{\MU}{\mathrm{MU}}
+\newcommand{\BP}{\mathrm{BP}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\BU}{\mathrm{BU}}
+
+
+\newcommand{\gr}{\mathrm{gr}}
+\newcommand{\fil}{\mathrm{fil}}
+
+\newcommand{\BGL}{\mathrm{BGL}}
+\newcommand{\Thick}{\mathrm{Thick}}
+\newcommand{\Th}{\mathrm{Th}}
+\newcommand{\Ext}{\operatorname{Ext}}
+
+\newcommand{\spaces}{\mathcal{S}}
+\newcommand{\one}{\mathrm{1}}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\wt}{\mathrm{wt}}
+\newcommand{\unfinished}{\textcolor{red}{INCOMPLETE }}
+\newcommand{\done}{\textcolor{green}{DONE }}
+
+\newcommand{\anss}{{}^{\mathrm{an}}\mathrm{E}}
+\newcommand{\genanss}{{}^{\mathrm{F}}\mathrm{E}}
+
+\newcommand{\mayss}{{}^{\mathrm{may}}\mathrm{E}}
+\newcommand{\vlines}{\mathrm{VL}}
+\newcommand{\page}{\mathrm{page}}
+\newcommand{\intercept}{\mathrm{incpt}}
+
+\newcommand{\kos}[1]{\mathbf{K}_\bullet(\mathbf{#1})}
+
+
+
+\newcommand{\ass}{\operatorname{Ass}}
+\newcommand{\spec}{\operatorname{Spec}}
+\newtheoremstyle{cited}{.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}{.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}{\itshape}{}{\bfseries}{\bfseries .}{5pt plus 1pt minus 1pt}{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont #3}}
+\theoremstyle{cited}
+\newtheorem{citedthm}[figure]{Theorem}
+\newtheorem{citedprop}[figure]{Proposition}
+\newtheorem{citedcor}[figure]{Corollary}
+
+%Operators
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand{\isom}{\operatorname{Isom}}
+\newcommand{\sets}{\operatorname{Sets}}
+\newcommand{\htensor}{\hat{\otimes}}
+
+%Objects
+\newcommand{\tensor}{\otimes}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\aff}{\mathbb{A}}
+\newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\ess}{\operatorname{Es}/S}
+
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bS}{\mathbb{S}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+
+%Maps
+\newcommand{\qcoh}[1]{\operatorname{Qcoh}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\der}[3]{\textrm{Der}_{#1}(#2,#3)}
+
+\newcommand{\affs}{\operatorname{Aff}/S}
+\newcommand{\ev}{\operatorname{ev}}
+\newcommand{\alg}{\operatorname{Alg}}
+\newcommand{\cech}{\operatorname{Cech}}
+\newcommand{\tot}{\operatorname{Tot}}
+\newcommand{\Fun}{\operatorname{Fun}}
+\newcommand{\fun}{\Fun}
+
+\newcommand{\CAlg}{\operatorname{CAlg}}
+\newcommand{\PSigma}{\operatorname{P}_{\Sigma}}
+
+\newcommand{\sCAlg}{\operatorname{sCAlg}}
+\renewcommand{\poly}{\mathrm{poly}}
+\newcommand{\colim}{\operatorname{colim}}
+\newcommand{\cof}{\operatorname{cof}}
+
+\newcommand{\HH}{\operatorname{HH}}
+\newcommand{\THH}{\operatorname{THH}}
+
+\newcommand{\Fil}{\mathrm{fil}}
+%Arrows
+\newcommand{\longisoto}{\overset{\sim}{\longrightarrow}}
+\newcommand{\spm}{\operatorname{Spm}}
+
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\Nm}{\operatorname{Nm}}
+
+\newcommand{\PrL}{\mathrm{Pr}^{\mathrm{L}}}
+\newcommand{\Ab}{\mathrm{Ab}}
+\newcommand{\Sp}{{\mathcal{S}\mathrm{p}}}
+\newcommand{\Mod}{\mathrm{Mod}}
+
+\newcommand{\HE}{\mathcal{H}\mathrm{Env}}
+\newcommand{\HESt}{\HE^{\Sp}}
+\newcommand{\Map}{\mathrm{Map}}
+
+
+\newcommand{\Cond}{\mathrm{Cond}}
+\newcommand{\Condbar}{\mathbf{Cond}}
+\newcommand{\Cat}{\mathrm{Cat}_\infty}
+\newcommand{\proet}{\text{pro-et}}
+\newcommand{\pep}{\ast_{\proet}}
+\newcommand{\Sh}{\mathrm{Sh}}
+\newcommand{\KCond}{\mathrm{K}^{\text{c}}}
+\newcommand{\LCA}{\mathrm{LCA}}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\PerfCat}{\mathrm{PerfCat}}
+\newcommand{\lc}{\mathrm{lc}}
+\newcommand{\K}{\mathrm{K}}
+\newcommand{\LCAbar}{\mathbf{LCA}}
+
+\newcommand{\Condf}[1]{\mathbf{#1}}
+
+\newcommand{\bfC}{\mathbf{C}}
+\newcommand{\bfD}{\mathbf{D}}
+\newcommand{\CondFun}{\Condf{Fun}}
+\newcommand{\CondCat}{\Condf{Cat}}
+\newcommand{\cond}{\text{c}}
+\newcommand{\CondD}{\Condf{D}}
+\newcommand{\CondPerf}{\Condf{Perf}}
+\newcommand{\CondLCA}{\Condf{LCA}}
+\newcommand{\CondCone}{\Condf{cone}}
+\newcommand{\CondK}{\Condf{K}}
+\newcommand{\Condpi}{\Condf{\varpi}}
+
+\newcommand{\Gal}{\mathrm{Gal}}
+\newcommand{\dKSel}{\mathrm{dK}^{\mathrm{Sel}}}
+
+
+\newcommand{\maxnote}[1]{\textcolor{blue}{#1}}
+\newcommand{\peternote}[1]{\textcolor{orange}{#1}}
+
+\newcommand{\cb}{\mathrm{cb}}
+
+\newcommand{\fp}{\mathrm{fp}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Syn}{\mathcal{S}\mathrm{yn}}
+\newcommand{\Bisyn}{\mathcal{B}\mathrm{isyn}}
+\newcommand{\Stable}{\mathcal{S}\mathrm{table}}
+\newcommand{\loc}{\mathrm{loc}}
+
+\begin{document}
+
+\section{$\tau$- and $\lambda$-Bockstein spectral sequences}
+
+In this section, we prove results about the $\tau$- and $\lambda$-Bockstein spectral sequences in $\Bisyn$. Let $\nu^2:\Sp\to\Bisyn$ denote the composition of the functors $\Sp\xrightarrow{\nu_E}\Syn_E\xrightarrow{\nu_F}\Bisyn$.
+
+\begin{rem}
+For this theorem, I'm using these assumptions:
+\begin{itemize}
+\item $\nu_F(\mathbb{S}^{k,w}_E) = \mathbb{S}^{k,w,k}$
+\item SES in $\nu_EF_{*,*}$-homology induces cofiber sequence in $\nu^2$
+\item $\nu^2$ is symmetric monoidal on projective objects
+\item homotopy of $\nu^2(F)$-module is $\lambda$-free
+\item $\lambda^{-1}$ is symmetric monoidal and satisfies $\lambda^{-1}\circ\nu_F=\mathrm{id}$
+\item inclusion or equivalence $\Mod(\Bisyn;C\lambda)\simeq\Stable(\nu_EF_{*,*}\nu_EF)$
+\end{itemize}
+\end{rem}
+
+\begin{thm}
+    For the bisynthetic spectrum $\nu_F(Y)$ with $Y\in\Syn_E$, the $\nu^2(F)$-Adams spectral sequence is isomorphic to the $\lambda$-Bockstein spectral sequence. 
+\end{thm}
+
+\begin{proof}
+  	Our proof of this follows very closely to the proofs in \cite[App. A]{BHS19}. Consider  the canonical $\nu_E(F)$-Adams tower
+
+\begin{equation*}
+	\begin{tikzcd}
+\cdots \arrow[r] & Y_2 \arrow[r] \arrow[d] & Y_1 \arrow[r] \arrow[d] & Y_0 \arrow[r, phantom, "{=}" description] \ar[d] & Y \\
+                 & Y_2\otimes\nu_E(F)      & Y_1\otimes\nu_E(F)      & Y_0\otimes\nu_E(F) &     
+\end{tikzcd}
+\end{equation*}
+
+of $Y\in\Syn_E$. This tower is made up of cofiber sequences
+\begin{equation*}
+Y_{n+1}\to Y_n\to Y_n\otimes\nu_E(F)\to\Sigma^{1,0}Y_{n+1}
+\end{equation*}
+
+such that the maps $Y_{n+1}\to Y_n$ induce the zero map on $\nu_E(F)_{*,*}$-homology. By SES prop. of $\nu_F$ (!!!need this fact!!!), these become cofiber sequences
+\begin{equation*}
+\Sigma^{-1}\nu_F(Y_{n+1})\to \nu_F(Y_n)\to \nu_F(Y_n\otimes\nu_E(F))\to\nu_F(\Sigma^{1,0}Y_{n+1}).
+\end{equation*}
+
+in $\Bisyn$. By symmetric monoidality of $\nu_F$ on projective objects (!!!need this fact!!!), we can identify these cofiber sequences as
+$$
+\Sigma^{0,0,1}\nu_F(Y_{n+1})\to \nu_F(Y_n)\to \nu_F(Y_n)\otimes\nu^2(F)\to\Sigma^{1,0,1}\nu_F(Y_{n+1}).
+$$
+
+Hence, the canonical $\nu^2(F)$-Adams tower for $\nu_F(Y)$ can be written as
+\begin{equation*}
+	\begin{tikzcd}
+\cdots \arrow[r] & \Sigma^{0,0,2}\nu_F(Y_2) \arrow[r] \arrow[d] & \Sigma^{0,0,1}\nu_F(Y_1) \arrow[r] \arrow[d] & \nu_F(Y_0) \arrow[r, phantom, "{=}" description] \ar[d] & \nu_F(Y) \\
+                 & \Sigma^{0,0,2}\nu_F(Y_2)\otimes\nu^2(F)      & \Sigma^{0,0,1}\nu_F(Y_1)\otimes\nu^2(F)      & \nu_F(Y_0)\otimes\nu^2(F)     
+\end{tikzcd} 
+\end{equation*}
+
+In the usual way, we get the Adams $E_1$-page
+$$
+\begin{aligned}
+{}_{\nu^2F}E_1^{f,k,w,v}&=\pi_{k,w,v}(\Sigma^{0,0,f}\nu_F(Y_f)\otimes\nu^2(F)) \\
+&\cong\pi_{k,w,v-f}(\nu_F(Y_f)\otimes\nu^2(F))
+\end{aligned}
+$$
+
+Because of the equivalence
+$$
+\nu_F(Y_n\otimes\nu_E(F))\simeq\nu_F(Y_n)\otimes\nu^2(F),
+$$
+
+and the fact that the homotopy of a $\nu^2(F)$-module is $\lambda$-free (!!!need this fact!!!), we can identify the $E_1$-page as
+$$
+{}_{\nu^2F}E_1^{f,k,w,v}\cong {}_{\nu_EF}E_1^{f,k,w}\otimes \bZ[\lambda],
+$$
+
+where $x\in{}_{\nu_EF}E_1^{f,k,w}$ lives in quad-degree $(f,k,w,k+f)$ (I'm pretty sure, but this is just a guess!!! double check when we know about homotopy of $\nu^2F$-modules better).
+
+The differentials in this spectral sequence are of the form
+$$
+d_r:{}_{\nu^2F}E_1^{f,k,w,v}\to {}_{\nu^2F}E_1^{f+r,k-1,w,v}.
+$$
+
+Since $\lambda^{-1}\circ\nu_F=\mathrm{id}$ and $\lambda$ is symmetric monoidal, the $\lambda$-inverted $\nu^2(F)$-Adams tower is the $\nu_E(F)$-Adams tower, and, in particular, the $\lambda$-inverted differentials 
+$$
+d_{r,\lambda^{-1}}:{}_{\nu_EF}E_1^{f,k,w}\to{}_{\nu_EF}E_1^{f+r,k-1,w}
+$$
+
+are exactly the differentials of the $\nu_E(F)$-Adams spectral sequence. Just as in \cite{BHS19}, this implies that if $d_{r,\lambda^{-1}}(x)=y$ is a $\nu_E(F)$-Adams differential, then
+$$
+d_r(x)=\lambda^{r-1}y.
+$$
+
+Using the equivalence (inclusion?)
+$$
+\Mod(\Bisyn;C\lambda)\simeq\Stable(\nu_EF_{*,*}\nu_EF),
+$$
+
+we see that the $\lambda$-Bockstein $E_1$-page
+$$
+{}_{\beta}E_1^{f,k,w,v}=\pi_{k,w,v}(\Sigma^{0,0,-f}\nu_F(Y)\otimes C\lambda)
+$$
+
+and Adams $E_2$-page are, up to a degree shift, isomorphic. Because they have the same formula for differentials, they must be isomorphic as spectral sequences.
+\end{proof}
+
+\begin{rem}
+We might actually need to prove a little bit more. \cite{BHS19} cites their Thm. 9.19(1) when they prove their version of this, but I'm not sure how exactly they're using that. Probably need to assume everything is nilpotent/lambda complete too, but don't feel like thinking about this for now. They also prove that the \textit{filtrations} are literally the same, not just that the spectral sequences are isomorphic.
+\end{rem}
+
+\begin{rem}
+For the next lemma and theorem, I need these assumptions:
+\begin{itemize}
+\item $\nu_F(\mathbb{S}^{k,w}_E) = \mathbb{S}^{k,w,k}$
+\item $E$ Adams-type and ring map $E\to F$
+\item $\nu_EP$, with $P$ finite $E_*$-projective, is "finite" in $\Syn_E$
+\item $\nu^2$ is symmetric monoidal on projective objects
+\item SES in $\nu_EF_{*,*}$-homology induces cofiber sequence in $\nu^2$
+\item Commuting diagram of functors
+\begin{equation*}
+\begin{tikzcd}
+\Bisyn \arrow[r,"\tau^{-1}"]           & \Syn_F        \\
+\Syn_E \arrow[u,"\nu_F"] \arrow[r,"\tau^{-1}"'] & \Sp \arrow[u,"\nu_F"']
+\end{tikzcd}
+\end{equation*}
+\item 
+\end{itemize}
+\end{rem}
+
+\begin{lem}
+\label{nuFsymmonlemma}
+The synthetic spectrum $\nu_EE\in\Syn_E$ is a filtered colimit of finite, $\nu_EF$-projectives. In particular, for $Y\in\Syn_E$, $$\nu_F(Y\otimes\nu_EE)\simeq\nu_F(Y)\otimes\nu^2(E).$$ 
+\end{lem}
+
+\begin{proof}
+Let $E\simeq \colim _{\alpha} E_\alpha$ where each $E_\alpha$ is a finite, $E_*$-projective spectrum. Since $\nu_E(E)\simeq\colim_\alpha \nu_EE_\alpha$, it suffices to show that each $\nu_EE_\alpha$ is a finite, $\nu_EF$-projective synthetic spectrum. Now, $\nu_EE_\alpha$ is automatically finite (!!!make sure we define what this means!!!). For projectivity, we see that
+$$
+\begin{aligned}
+\nu_EE_\alpha\otimes\nu_EF\simeq\nu_E(E_\alpha\otimes F),
+\end{aligned}
+$$
+
+with homotopy $\pi_{*,*}(\nu_EE_\alpha\otimes\nu_EF)\cong F_*E_\alpha[\tau]$. By a Kunneth spectral sequence argument,
+$$
+F_*E_\alpha\cong E_*E_\alpha\otimes_{E_*}F_*.
+$$
+In particular, since $E_*E_\alpha$ is projective over $E_*$, then $F_*E_\alpha$ is projective over $F_*$. Tensoring with $\mathbb{Z}[\tau]$ preserves projectivity, so that
+$F_*E_\alpha[\tau]$ is projective over $\nu_EF_{*,*}\cong F_*[\tau]$.  
+\end{proof}
+
+\begin{thm}
+    For the bisynthetic spectrum $\nu^2(X)$ with $X\in\Sp$, the $\nu^2(E)$-Adams spectral sequence is isomorphic to the $\tau$-Bockstein spectral sequence. 
+\end{thm}
+
+\begin{proof}
+Consider  the canonical $E$-Adams tower
+
+\begin{equation*}
+	\begin{tikzcd}
+\cdots \arrow[r] & X_2 \arrow[r] \arrow[d] & X_1 \arrow[r] \arrow[d] & X_0 \arrow[r, phantom, "{=}" description] \ar[d] & X \\
+                 & X_2\otimes E      & X_1\otimes E      & X_0\otimes E &     
+\end{tikzcd}
+\end{equation*}
+
+of $X\in\Sp$. This tower is made up of cofiber sequences
+\begin{equation*}
+X_{n+1}\to X_n\to X_n\otimes E\to\Sigma X_{n+1}
+\end{equation*}
+
+such that the maps $X_{n+1}\to X_n$ induce the zero map on $E_*$-homology. Applying $\nu_E$ to these cofiber sequences, as in \cite{BHS19} we get cofiber sequences
+$$
+\Sigma^{0,1}\nu_E(X_{n+1})\to \nu_E(X_n)\to \nu_E(X_n)\otimes \nu_E(E)\to\Sigma^{1,1} \nu_E(X_{n+1}).
+$$
+Since $F_*(-)\cong E_*(-)\otimes_{E_*}F_*$ and the maps $\Sigma^{0,1}\nu_E(X_{n+1})\to\nu_E(X_n)$ induce the zero map on $\nu_E(E)_{*,*}$-homology, the maps $\Sigma^{0,1}\nu_E(X_{n+1})\to\nu_E(X_n)$ also induce zero on $\nu_E(F)_{*,*}$-homology. This, together with Lemma~\ref{nuFsymmonlemma}, implies that there are cofiber sequences
+$$
+\Sigma^{0,1,1}\nu^2(X_{n+1})\to \nu^2(X_n)\to \nu^2(X_n)\otimes \nu^2(E)\to\Sigma^{1,1,1} \nu^2(X_{n+1})
+$$
+which build up the canonical $\nu^2(E)$-Adams tower
+\begin{equation*}
+	\begin{tikzcd}
+\cdots \arrow[r] & \Sigma^{0,2,2}\nu^2(X_2) \arrow[r] \arrow[d] & \Sigma^{0,1,1}\nu^2(X_1) \arrow[r] \arrow[d] & \nu^2(X_0) \arrow[r, phantom, "{=}" description] \ar[d] & \nu^2(X) \\
+                 & \Sigma^{0,2,2}\nu^2(X_2)\otimes\nu^2(E)      & \Sigma^{0,1,1}\nu^2(X_1)\otimes\nu^2(E)      & \nu^2(X_0)\otimes\nu^2(E)     
+\end{tikzcd} 
+\end{equation*}
+for $\nu^2(X)\in\Bisyn$. The $\nu^2(E)$-Adams $E_1$-page has the form
+$$
+\begin{aligned}
+{}_{\nu^2E}E_1^{f,k,w,v}&=\pi_{k,w,v}(\Sigma^{0,f,f}\nu^2(X_f)\otimes\nu^2(E)) \\
+&\cong\pi_{k,w-f,v-f}(\nu^2(X_f)\otimes\nu^2(E)).
+\end{aligned}
+$$
+We aim to show that this is $\tau$-free. 
+\end{proof}
+
+\printbibliography
+
+\end{document}
