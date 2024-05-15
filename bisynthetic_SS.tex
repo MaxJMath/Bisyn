@@ -1,7 +1,6 @@
 \documentclass[10pt]{amsart}
 \usepackage[letterpaper,margin=1in,footskip=0.25in]{geometry}
 
-
 %\usepackage{garamondlibre}
 \usepackage{times}
 %\usepackage{CormorantGaramond}
@@ -269,7 +268,7 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 
 \begin{document}
 
-\section{$\tau$- and $\lambda$-Bockstein spectral sequences}
+\section{\texorpdfstring{$\tau$- and $\lambda$-Bockstein spectral sequences}{Tau- and Lambda-Bockstein spectral sequences}}
 
 In this section, we prove results about the $\tau$- and $\lambda$-Bockstein spectral sequences in $\Bisyn$. Let $\nu^2:\Sp\to\Bisyn$ denote the composition of the functors $\Sp\xrightarrow{\nu_E}\Syn_E\xrightarrow{\nu_F}\Bisyn$.
 
@@ -344,12 +343,12 @@ where $x\in{}_{\nu_EF}E_1^{f,k,w}$ lives in quad-degree $(f,k,w,k+f)$ (I'm prett
 
 The differentials in this spectral sequence are of the form
 $$
-d_r:{}_{\nu^2F}E_1^{f,k,w,v}\to {}_{\nu^2F}E_1^{f+r,k-1,w,v}.
+d_r:{}_{\nu^2F}E_r^{f,k,w,v}\to {}_{\nu^2F}E_r^{f+r,k-1,w,v}.
 $$
 
 Since $\lambda^{-1}\circ\nu_F=\mathrm{id}$ and $\lambda$ is symmetric monoidal, the $\lambda$-inverted $\nu^2(F)$-Adams tower is the $\nu_E(F)$-Adams tower, and, in particular, the $\lambda$-inverted differentials 
 $$
-d_{r,\lambda^{-1}}:{}_{\nu_EF}E_1^{f,k,w}\to{}_{\nu_EF}E_1^{f+r,k-1,w}
+d_{r,\lambda^{-1}}:{}_{\nu_EF}E_r^{f,k,w}\to{}_{\nu_EF}E_r^{f+r,k-1,w}
 $$
 
 are exactly the differentials of the $\nu_E(F)$-Adams spectral sequence. Just as in \cite{BHS19}, this implies that if $d_{r,\lambda^{-1}}(x)=y$ is a $\nu_E(F)$-Adams differential, then
@@ -364,7 +363,7 @@ $$
 
 we see that the $\lambda$-Bockstein $E_1$-page
 $$
-{}_{\beta}E_1^{f,k,w,v}=\pi_{k,w,v}(\Sigma^{0,0,-f}\nu_F(Y)\otimes C\lambda)
+{}_{\lambda}E_1^{f,k,w,v}=\pi_{k,w,v}(\Sigma^{0,0,-f}\nu_F(Y)\otimes C\lambda)
 $$
 
 and Adams $E_2$-page are, up to a degree shift, isomorphic. Because they have the same formula for differentials, they must be isomorphic as spectral sequences.
@@ -375,13 +374,14 @@ We might actually need to prove a little bit more. \cite{BHS19} cites their Thm.
 \end{rem}
 
 \begin{rem}
-For the next lemma and theorem, I need these assumptions:
+For the next lemmas and theorem, I need these assumptions:
 \begin{itemize}
 \item $\nu_F(\mathbb{S}^{k,w}_E) = \mathbb{S}^{k,w,k}$
 \item $E$ Adams-type and ring map $E\to F$
 \item $\nu_EP$, with $P$ finite $E_*$-projective, is "finite" in $\Syn_E$
 \item $\nu^2$ is symmetric monoidal on projective objects
 \item SES in $\nu_EF_{*,*}$-homology induces cofiber sequence in $\nu^2$
+\item Homotopy of $\nu^2E$-module is $\tau$-free
 \item Commuting diagram of functors
 \begin{equation*}
 \begin{tikzcd}
@@ -389,9 +389,26 @@ For the next lemma and theorem, I need these assumptions:
 \Syn_E \arrow[u,"\nu_F"] \arrow[r,"\tau^{-1}"'] & \Sp \arrow[u,"\nu_F"']
 \end{tikzcd}
 \end{equation*}
-\item 
 \end{itemize}
 \end{rem}
+
+\begin{lem}
+\label{Fprojlemma}
+If a spectrum $X\in\Sp$ is $E_*$-projective, then it is $F_*$-projective. In particular for any spectrum $Y\in\Sp$,
+$$
+\nu_F(Y\otimes E)\simeq\nu_FY\otimes \nu_FE.
+$$
+\end{lem}
+
+\begin{proof}
+    By the assumption that $E$ is Adams-type and $F$ is an $E$-module, by a K\"unneth spectral sequence argument we have a natural isomorphism of functors
+    $$
+    F_*(-)\xrightarrow{\cong}E_*(-)\otimes_{E_*}F_*.
+    $$
+    In particular, if $E_*X$ is projective over $E_*$ then $F_*X\cong E_*X\otimes_{E_*}F_*$ is projective over $F_*$.
+
+    The second statement follows from the fact that $E$ is a filtered colimit of finite, $F_*$-projective spectra and \cite[Lem. 4.24]{Pst22}.
+\end{proof}
 
 \begin{lem}
 \label{nuFsymmonlemma}
@@ -406,12 +423,37 @@ $$
 \end{aligned}
 $$
 
-with homotopy $\pi_{*,*}(\nu_EE_\alpha\otimes\nu_EF)\cong F_*E_\alpha[\tau]$. By a Kunneth spectral sequence argument,
-$$
-F_*E_\alpha\cong E_*E_\alpha\otimes_{E_*}F_*.
-$$
-In particular, since $E_*E_\alpha$ is projective over $E_*$, then $F_*E_\alpha$ is projective over $F_*$. Tensoring with $\mathbb{Z}[\tau]$ preserves projectivity, so that
+with homotopy groups $\pi_{*,*}(\nu_EE_\alpha\otimes\nu_EF)\cong F_*E_\alpha[\tau]$. By Lemma~\ref{Fprojlemma}, $F_*E_\alpha$ is projective over $F_*$. Tensoring with $\mathbb{Z}[\tau]$ preserves projectivity, so that
 $F_*E_\alpha[\tau]$ is projective over $\nu_EF_{*,*}\cong F_*[\tau]$.  
+\end{proof}
+
+\begin{lem}
+\label{nuEseslemma}
+Suppose
+$$
+\nu_EX\to\nu_EY\to\nu_EZ
+$$
+is a cofiber sequence in $\Syn_E$, induced by a cofiber sequence $X\to Y\to Z$ in $\Sp$. If the cofiber sequence in $\Syn_E$ induces a short exact sequence in $\nu_EE_{*,*}$-homology, then it induces a short exact sequence in $\nu_EF_{*,*}$-homology. 
+\end{lem}
+
+\begin{proof}
+By the assumption that $E$ is Adams-type and $F$ is an $E$-module, there are natural isomorphisms of functors
+$$
+\begin{aligned}
+\nu_EF_{*,*}(\nu_E(-))&\cong F_*(-)[\tau] \\
+&\cong (E_*(-)\otimes_{E_*}F_*)[\tau] \\
+&\cong \nu_EE_{*,*}(\nu_{E}(-))\otimes_{\nu_EE_{*,*}}\nu_EF_{*,*}\, .
+\end{aligned}
+$$
+
+Consider a map $Z\to\Sigma X$ induced by the cofiber sequence in $\Sp$. Note that $\nu_E(\Sigma X)\simeq\Sigma^{1,1}\nu_EX$ and the map $\nu_E Z\to\Sigma^{1,0}\nu_EX$ sits in a commutative diagram
+\begin{equation*}
+\begin{tikzcd}
+\nu_EZ \ar[r, "f"] \ar[dr, "g"'] & \Sigma^{1,0}\nu_EX \ar[d,"\tau"] & \\
+& \nu_E(\Sigma X) \ar[r, phantom, "{\simeq}" description] & \Sigma^{1,1}\nu_EX
+\end{tikzcd}
+\end{equation*}
+with the horizontal and diagonal maps inducing the zero map in $\nu_EE_{*,*}$-homology. Since everything is $\tau$-free when we apply $\nu_EF_{*,*}(-)$ and the map $\nu_EF_{*,*}(g)$ is zero by the natural isomorphism above, then $\nu_EF_{*,*}(\tau)$ is injective so that $\nu_EF_{*,*}(f)$ is also the zero map.
 \end{proof}
 
 \begin{thm}
@@ -419,7 +461,7 @@ $F_*E_\alpha[\tau]$ is projective over $\nu_EF_{*,*}\cong F_*[\tau]$.
 \end{thm}
 
 \begin{proof}
-Consider  the canonical $E$-Adams tower
+The proof starts off similarly to the proof for the $\nu^2(F)$-Adams SS and the $\lambda$-Bockstein SS. Consider the canonical $E$-Adams tower
 
 \begin{equation*}
 	\begin{tikzcd}
@@ -439,24 +481,62 @@ $$
 $$
 Since $F_*(-)\cong E_*(-)\otimes_{E_*}F_*$ and the maps $\Sigma^{0,1}\nu_E(X_{n+1})\to\nu_E(X_n)$ induce the zero map on $\nu_E(E)_{*,*}$-homology, the maps $\Sigma^{0,1}\nu_E(X_{n+1})\to\nu_E(X_n)$ also induce zero on $\nu_E(F)_{*,*}$-homology. This, together with Lemma~\ref{nuFsymmonlemma}, implies that there are cofiber sequences
 $$
-\Sigma^{0,1,1}\nu^2(X_{n+1})\to \nu^2(X_n)\to \nu^2(X_n)\otimes \nu^2(E)\to\Sigma^{1,1,1} \nu^2(X_{n+1})
+\Sigma^{0,1,1}\nu^2(X_{n+1})\to \nu^2(X_n)\to \nu^2(X_n)\otimes \nu^2(E)\to\Sigma^{1,1,1} \nu^2(X_{n+1}).
 $$
+Regrading by letting $Z_n=\Sigma^{0,0,n}\nu^2(X_n)$, these become cofiber sequences
+$$
+\Sigma^{0,1,0}Z_{n+1}\to Z_n\to Z_n\otimes \nu^2(E)\to\Sigma^{1,1,0} Z_{n+1}
+$$
+
 which build up the canonical $\nu^2(E)$-Adams tower
 \begin{equation*}
 	\begin{tikzcd}
-\cdots \arrow[r] & \Sigma^{0,2,2}\nu^2(X_2) \arrow[r] \arrow[d] & \Sigma^{0,1,1}\nu^2(X_1) \arrow[r] \arrow[d] & \nu^2(X_0) \arrow[r, phantom, "{=}" description] \ar[d] & \nu^2(X) \\
-                 & \Sigma^{0,2,2}\nu^2(X_2)\otimes\nu^2(E)      & \Sigma^{0,1,1}\nu^2(X_1)\otimes\nu^2(E)      & \nu^2(X_0)\otimes\nu^2(E)     
+\cdots \arrow[r] & \Sigma^{0,2,0}Z_2 \arrow[r] \arrow[d] & \Sigma^{0,1,0}Z_1 \arrow[r] \arrow[d] & Z_0 \arrow[r, phantom, "{=}" description] \ar[d] & \nu^2(X) \\
+                 & \Sigma^{0,2,0}Z_2\otimes\nu^2(E)      & \Sigma^{0,1,0}Z_1\otimes\nu^2(E)      & Z_0\otimes\nu^2(E)     
 \end{tikzcd} 
 \end{equation*}
 for $\nu^2(X)\in\Bisyn$. The $\nu^2(E)$-Adams $E_1$-page has the form
 $$
 \begin{aligned}
-{}_{\nu^2E}E_1^{f,k,w,v}&=\pi_{k,w,v}(\Sigma^{0,f,f}\nu^2(X_f)\otimes\nu^2(E)) \\
-&\cong\pi_{k,w-f,v-f}(\nu^2(X_f)\otimes\nu^2(E)).
+{}_{\nu^2E}E_1^{f,k,w,v}&=\pi_{k,w,v}(\Sigma^{0,f,0}Z_f\otimes\nu^2(E)) \\
+&\cong\pi_{k,w-f,v}(Z_f\otimes\nu^2(E)).
 \end{aligned}
 $$
-We aim to show that this is $\tau$-free. 
+Since $Z_f\otimes \nu^2(E)$ is a $\nu^2(E)$-module, the $E_1$-page is $\tau$-free and via the $\tau$-inversion functor $\tau^{-1}$, we have an isomorphism
+$$
+{}_{\nu^2E}E_1^{f,k,w,v}\cong{}_{\nu_FE}E_1^{f,k,v}\otimes\bZ[\tau]
+$$
 \end{proof}
+
+where $x\in{}_{\nu_EF}E_1^{f,k,v}$ lives in quad-degree $(f,k,k+f,v)$. The differentials in this spectral sequence are of the form
+$$
+d_r:{}_{\nu^2E}E_r^{f,k,w,v}\to {}_{\nu^2E}E_r^{f+r,k-1,w,v}.
+$$
+
+By Lemma~\ref{Fprojlemma} and the commutative diagram of functors
+\begin{equation*}
+\begin{tikzcd}
+\Bisyn \arrow[r,"\tau^{-1}"]           & \Syn_F        \\
+\Syn_E \arrow[u,"\nu_F"] \arrow[r,"\tau^{-1}"'] & \Sp \arrow[u,"\nu_F"']
+\end{tikzcd}
+\end{equation*}
+
+the symmetric monoidal $\tau$-inversion functor $\tau^{-1}:\Bisyn\to\Syn_F$ sends the $\nu^2(E)$-Adams tower to a $\nu_FE$-Adams tower in $\Syn_F$. In particular, the $\tau$-localized differentials $d_{r,\tau^{-1}}$ are exactly the $\nu_FE$-Adams spectral sequence differentials and, so, if $d_{r,\tau^{-1}}(x)=y$, then
+$$
+d_r(x)=\tau^{r-1}y.
+$$
+
+Using the equivalence (inclusion?)
+$$
+\Mod(\Bisyn;C\tau)\simeq\Stable(\nu_FE_{*,*}\nu_FE),
+$$
+
+we see that the $\tau$-Bockstein $E_1$-page
+$$
+{}_{\tau}E_1^{f,k,w,v}=\pi_{k,w,v}(\Sigma^{0,-f,0}\nu^2(X)\otimes C\tau)
+$$
+
+and Adams $E_2$-page are, up to a degree shift, isomorphic. Because they have the same formula for differentials, they must be isomorphic as spectral sequences.
 
 \printbibliography
 
