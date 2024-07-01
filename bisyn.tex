@@ -434,10 +434,14 @@ The tensor product on $\cC$ restricts to $\cC^\omega_{\H}$ and $\H_\star:\cC^\om
 
 \subsection{$\H$-Synthetic Spectra}
 
-Again we fix a homological context $\cC\to \cD\to \cA$ with notation as in all previous sections.
+Again we fix a homological context $\cC\to \cD\to \cA$ with notation as in all previous sections. Recall that a presheaf $F:\cC^\op\to \cD$ is said to be spherical if for all $X,Y\in \cC$ the natural map
+\[
+F(X\amalg Y)\to F(X)\times F(Y)
+\]
+is an equivalence. A sheaf is said to be spherical if the underlying presheaf is, and the sheafification functor when it exists sends spherical sheaves to spherical presheaves. Spherical presheaves are very well behaved when the category $\cC$ is additive. In particular, in this case we get canonical lifts to grouplike commutative monoids in $\cD$, so long as these make sense. As a result, spherical sheaves of spaces on $\cC$ lift canonically to spherical sheaves of connective spectra.
 
 \begin{definition}
-  The category of of Synthetic Spectra with respect to the context above is the category of spherical sheaves of spectra $\Sh_\Sigma(\cC^\omega_\H, \Sp)$. We will often drop much of the context data and refer to this as the category $\Syn_\H$ of $\H$-synthetic spectra.
+  The category of of Synthetic Spectra with respect to the context above is the category of spherical sheaves of spectra $\Sh_\Sigma(\cC^\omega_\H, \Sp)$ on the $\H$-finite site. We will often drop much of the context data and refer to this as the category $\Syn_\H$ of $\H$-synthetic spectra.
 \end{definition}
 
 \begin{proposition}
@@ -482,9 +486,7 @@ Again we fix a homological context $\cC\to \cD\to \cA$ with notation as in all p
   A spectrum $E$ is said to be Adams-type if there exists a filtered diagram $X_\alpha$ such that each $X_\alpha$ is in $\Sp^\fp_E$ and such that the natural map $E^*X_\alpha\to \Hom_{E_*}(E_*X_\alpha, E_*)$ is an isomorphism.
 \end{definition}
 
-\begin{definition}
-  A presheaf $F:\cC^\op \to \cD$ on a category with finite coproducts is said to be spherical if for all $c,c'\in \cC$ the natural map $F(c\amalg c')\to F(c)\times F(c')$ is an equivalence, i.e., if $F$ preserves finite products as a covariant functor on $\cC^\op$.
-\end{definition}
+
 
 \begin{definition}
   The category $\Syn_E$ of synthetic spectra is the category of spherical presheaves of spectra on the excellent site $\Sp^\fp_E$.
