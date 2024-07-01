@@ -268,12 +268,200 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 \newcommand{\Stable}{\mathcal{S}\mathrm{table}}
 \newcommand{\loc}{\mathrm{loc}}
 
+\renewcommand{\H}{\mathrm{H}}
+\newcommand{\G}{\mathrm{G}}
+
+\newcommand{\Comod}{\mathcal{C}\mathrm{omod}}
+
+\newcommand{\Tor}{\mathrm{Tor}}
+
 \begin{document}
 
 \title{Bisynthetic Spectra}
 \author{Maxwell Johnson and Peter Marek}
 
 \maketitle
+
+\section{Generalizing Synthetic Spectra}
+
+Throughout this section we fix a presentably symmetric monoidal stable $\infty$-category $\cC$. Our goal in this section is to generalize the original construction of synthetic spectra due to \cite{Pst22} for a broader class of homology theories on stable $\infty$-categories.
+
+\subsection{Homological Contexts} In order to set up a theory of synthetic spectra, we must first specify what the necessary data is. The original theory takes as input a (nice) ring spectrum $E$, but makes substantial use of the underlying structure present in $\Sp$ and the concomitant properties of the induced homology theory $E_*$. We spell out below what we believe is a suitably general theory of homological contexts, i.e., theories which act sufficiently like functors $X\mapsto \pi_*(X\otimes E)$.
+
+
+\begin{definition}
+  A local grading on a category $\cD$ is an auto-equivalence $-[1]:\cD\to \cD$. A category is said to be locally graded if it has a chosen local grading.
+\end{definition}
+
+\begin{example}
+  All stable $\infty$-categories are locally graded by by the formal suspension $-[1]:=\Sigma$. 
+\end{example}
+
+\begin{example}
+  A graded category $\Fun(\bZ,\cD)$ where $\bZ$ is the discrete category on the integers is locally graded by the shift functor induced by $n\mapsto n\pm 1$ on $\bZ$.
+\end{example}
+
+Both examples above frequently arise as special cases of the following:
+
+\begin{example}[Pic Grading]
+  If $\cD$ is monoidal and $X$ is a Picard-object, i.e., it is $\otimes$-invertible, then the functor $-\otimes X$ forms a local grading on $\cD$.
+\end{example}
+
+\begin{definition}
+  Let $\cD$ be a presentably symmetric monoidal stable $\infty$-category and let $\cA$ be an abelian 1-category equipped with a local grading. A functor $\pi_\star:\cD\to \cA$ is said to be a homotopy groups functor if it is conservative, lax monoidal, and additive, and if in addition it
+  \begin{enumerate}
+    \item sends cofibers in $\cD$ to exact sequences in $\cA$,
+    \item and intertwines the local gradings $\H(\Sigma X)=H(X)[1]$ naturally.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  An important consequence of the above definition is that any such $\H$ will send a cofiber sequence $X\to Y\to Z$ in $\cD$ to a long exact sequence in $\cA$ as rotating the cofiber in $\cD$ results in a local-grading-shift in $\cA$.
+\end{remark}
+
+\begin{remark}
+Note that if $\pi_\star:\cD\to \cA$ satisfies all of the above except that it fails to be conservative, we may pass to the localization $\cD^{\mathrm{cell}}$ of $\cD$ which, among other descriptions, can be taken to be the cofiber in $\Cat^\mathrm{ex}$ of the inclusion of the objects in $\cD$ which are $\pi_\star$-isomorphic to $0\in \cA$.
+\end{remark}
+
+\begin{example}
+  The above definition is engineered not just to capture the classical examples of homotopy groups of spectra, but also the categories of (genuine) equivariant spectra, cellular motivic spectra, and cellular synthetic spectra. In general, we will want the extra flexibility of considering homotopy groups (and later homology theories) which are multigraded and have long exact sequences with respect to the formal suspension.
+\end{example}
+
+\begin{definition}
+  \label{def:homcontext}
+  A \textit{homological context} is the data of two presentably symmetric monoidal stable $\infty$-categories $\cC,\cD$, a symmetric monoidal left adjoint $\H:\cC\to \cD$, and a homotopy groups functor $\pi_\star:\cC\to \cA$. If $\G$ is the right adjoint to $\H$ we write $\H_\star$ for the composite $\pi_\star\circ \G\circ \H$.
+\end{definition}
+
+\begin{example}
+  All examples we study in this paper will be given by the following data. First we fix $\cC$ as above and assume $\cC$ has a homotopy groups functor $\pi_\star$. We then let $R\in \CAlg(\cC)$ and put $\H:=-\otimes R$ valued in $\Mod(R)$ where it becomes symmetric monoidal (and preserves colimits by assumption). Then $\H_\star$ corresponds to taking the homotopy groups on the underlying $\cC$-objects of $-\otimes R$.
+\end{example}
+
+\subsection{The Adams Spectral Sequence of a Homological Context}
+
+Here we elucidate some of our assumptions on a homological context $(\cC,\cD,\H,\pi_\star)$ by explaining how to construct the relevant Adams spectral sequence which will have the form:
+\[
+\Ext_{\cA}(\H_\star X, H_{\star}Y) \Rightarrow \pi_\star \Map_{\cC}
+\]
+To construct this spectral sequence, we will use the Adams spectral sequence associated to an adjunction due to Krause \cite[\S 2.2]{Krause}. Namely, let $\G$ denote the right adjoint to the functor $\H$. Then the composition $\H\G$ gives rise to an exact comonad on $\cD$ and we may consider the category $\Comod(\H\G)$ of comodules\footnote{Sometimes refered to as $\H\G$-coalgebras, but we prefer the terminology of \cite{Krause} since such an object is essentially an object of $\cD$ with a coaction of $\H\G$.} over this comonad. Note that any object in the image of $\H$ automatically acquires the structure of an $\H\G$-comodule and thus we may factor the functor 
+\[\H:\cC\to \Comod(\H\G)\xrightarrow{\mathrm{Forget}}\cD\]
+We will write $\hat \H$ for the first functor above.
+
+\begin{definition}[\cite{Definition 2.24}[Krause]]
+  An object $X\in \cC$ is $\H\G$-complete if the induced map
+  \[
+  \Map_{\cC}(Z,X)\to \Map_{\Comod(\H\G)}(\hat H(Z), \hat H(X))
+  \]
+  is an equivalence for all $Z$.
+\end{definition}
+
+The full subcategory of $\H\G$-complete objects in $\cC$ is a localization of $\cC$, we refer to the completion functor as $\H\G$-completion \cite[todo]{Krause}. The comonad $\H\G$ allows us to resolve (the $\H\G$ completions of) objects of $\cC$ via the cobar resolution:
+
+\begin{definition}
+  The cobar complex of $\H\G$ is the functor $\cb_{\H\G}:\cC\to \cC^{\Delta^\op}$ which sends an object $X$ to the cosimplicial object $(\G\H)^{\circ n+1}$. This produces a cosimplicial object in $\cA$ after applying $\pi_\star$ levelwise which we denote $\cb_{\H_\star}$.
+\end{definition}
+
+\begin{remark}
+  The comodule structure above should be viewed as a generalization of remembering that the $E$-homology of a spectrum $X$ comes equipped with the structure of a comodule over the $E$-cooperations.
+\end{remark}
+
+\begin{definition}
+  The $\H$-Adams Spectral sequence for the mapping object from $Z$ to $X$ is the Bousfield-Kan spectral sequence obtained by applying the functor $\pi_\star\Map_{\cC}^{\cC}(Z, -)$ to $\cb_{\H\G}(X)$. It converges conditionally to $\pi_\star\Map_{\cC}^{\cC}(Z,X^\wedge_{\H\G})$.
+\end{definition}
+
+Note that in the above discussion we made substantial use of the fact that we had both the left adjoint $\cC\to \cD$ as well as the functor $\pi_\star:\cC\to \cA$. Our general theory of "homology theories" differs from much of the literature in that we ask for both of these data, however, we believe that most examples of interest in nature arise in this fashion anyway.
+
+\subsection{$\H$-finite sites}
+
+In this section we fix a homological context (Definition \ref{def:homcontext})
+\[
+\cC\xrightarrow{\H} \cD \xrightarrow{\pi_\star} \cA
+\]
+whose composition is denoted $H_\star$. To such a context we will assocaited a site $\cC_{\H}^\omega$ which will encode the relevant properties of the $\H$-Adams spectral sequence.
+
+\begin{definition}
+  With notation as above, the $\H$-finite site of $\cC$, denoted $\cC^{\omega}_{\H}$, is the full subcategory of $\cC^\omega$ consisting of objects $X$ such that $\H(X)$ is dualizable in $\cA$. The coverings in $\cC^\omega_{\H}$ are the single maps $f:X\to Y$ such that $\H(f)$ is an epimorphism, which we call $\H$-epimorphisms for short.
+\end{definition}
+
+\begin{remark}
+  Note that in a symmetric monoidal abelian category $\cA$, the condition of an object $P$ being dualizable is equivalent to be finitely generated, in the sense that there is an epimorphism $\one_{\cA}^{\oplus n}\to P$, and projective.
+\end{remark}
+
+\begin{lemma}
+  \label{lem:sitepullbacks}
+  Let $Q,R,P\in \cC^\omega_\H$. Suppose $f:Q\to P$ is an $\H$-epimorphism and $g:R\to P$ is arbitrary. Let $X=Q\times_P R$ denote the pullback in $\cC$. Then $X$ is again in $\cC^\omega_\H$ and $X\to R$ is an $\H$-epimorphism.
+\end{lemma}
+
+\begin{proof}
+  First we note that the pullback may equivalently be described via the fiber sequence
+  \[
+  X\to Q\oplus R \xrightarrow{f-g} P
+  \]
+  and as a result is compact as the fiber of a map between compact objects. Moreover, because $\H(Q)\to \H(P)$ is an $\H$-epimorphism and because $\H(Q)$ is projective, we get a lift $\tilde g:H(R)\to H(P)$ which then splits the long exact sequence. As a result, the long exact sequence breaks up into short exact sequences, and we use the 2-out-of-3 property to claim that $\H(X)$ is therefore dualizable. That $\H(X)\to \H(R)$ is an epimorphism follows from the additional splitting.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:sitetensors}
+The tensor product on $\cC$ restricts to $\cC^\omega_{\H}$ and $\H_\star:\cC^\omega_\H\to \cA$ is monoidal.
+\end{lemma}
+
+\begin{proof}
+  The tensor product automatically restricts to $\cC^\omega$, so it is only necessary to show that if $X,Y\in \cC^\omega_\H$ then $\H_\star(X\otimes Y)$ is dualizable, which itself would follow from the monoidality claim on $\H_\star$. But then even if only one of $X$ or $Y$ were projective, the lax-monoidality map
+  \[
+  \H_\star(X\otimes Y)\to H_\star(X)\otimes H_\star(Y)
+  \]
+  is an isomorphism via Kunneth spectral sequence:
+  \[
+  \Tor_{\cA}(\H(X),\H(Y))\Rightarrow H(X\otimes Y)
+  \]
+  which is concentrated in the $0$-line isomorphic to $H(X)\otimes H(Y)$ due to the projectivity of either factor.
+\end{proof}
+
+\begin{remark}
+  Recall from \cite{Pst22} that a site is \textit{additive} if the coverings are provided by singletons and the underlying category is additive. 
+\end{remark}
+
+\begin{definition}[\cite{Pst22}]
+  An additive site is site whose underlying category is additive and whose coverings are all single maps. Such a site is in addition excellent if it is equipped with a symmetric monoidal structure in which every object has a dual and such that the functors $-\otimes P$ preserve coverings for all $P$ in the site.
+\end{definition}
+
+\begin{proposition}
+  The category $\cC^\omega_\H$ is an excellent site.
+\end{proposition}
+
+\begin{proof}
+  By definition the underlying category is additive and by Lemma \ref{lem:sitepullbacks} we know that it forms a site which whose coverings are single maps by definition. Finally by Lemma \ref{lem:sitetensors} we already know the tensor product restricts and all objects have duals. All that remains is to show that for all $P\in \cC^\omega_\H$ the functor $-\otimes P$ preserves coverings. But this again follows from the proof of Lemma \ref{lem:sitetensors} as the tensor product of epimorphisms is again an epimorphism.
+\end{proof}
+
+\subsection{$\H$-Synthetic Spectra}
+
+Again we fix a homological context $\cC\to \cD\to \cA$ with notation as in all previous sections.
+
+\begin{definition}
+  The category of of Synthetic Spectra with respect to the context above is the category of spherical sheaves of spectra $\Sh_\Sigma(\cC^\omega_\H, \Sp)$. We will often drop much of the context data and refer to this as the category $\Syn_\H$ of $\H$-synthetic spectra.
+\end{definition}
+
+\begin{proposition}
+  The category $\Syn_\H$ is presentably symmetric monoidal and comes equipped with a synthetic analog functor $\nu:\cC\to \Syn_\H$ defined by lifting the Yoneda embedding. The functor $\nu$ preserves filtered colimits and direct sums. It is in addition lax monoidal and for any $P\in \cC^\omega_\H$ the natural map $\nu(-\otimes X)\to \nu(-)\otimes \nu(P)$ is an equivalence.
+\end{proposition}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Recollections on Synthetic Spectra}
 
@@ -379,5 +567,3 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 \subsection{The $\tau$-special fiber}
 
 \maxnote{I have no idea what to do for this at the moment, would love any ideas.}
-
-\end{document}
