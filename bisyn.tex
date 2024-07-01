@@ -11,6 +11,7 @@
 \usepackage{setspace}
 \usepackage{mathrsfs}
 \usepackage{tikz-cd}
+\usepackage{todonotes}
 
 \usepackage[
 backend=biber,
@@ -315,6 +316,8 @@ Both examples above frequently arise as special cases of the following:
   \end{enumerate}
 \end{definition}
 
+\todo[inline]{I think this definition is in the Irakli-Piotr paper as a homology theory (Def. 2.8). We could just quote them on it}
+
 \begin{remark}
   An important consequence of the above definition is that any such $\H$ will send a cofiber sequence $X\to Y\to Z$ in $\cD$ to a long exact sequence in $\cA$ as rotating the cofiber in $\cD$ results in a local-grading-shift in $\cA$.
 \end{remark}
@@ -332,11 +335,13 @@ Note that if $\pi_\star:\cD\to \cA$ satisfies all of the above except that it fa
   A \textit{homological context} is the data of two presentably symmetric monoidal stable $\infty$-categories $\cC,\cD$, a symmetric monoidal left adjoint $\H:\cC\to \cD$, and a homotopy groups functor $\pi_\star:\cC\to \cA$. If $\G$ is the right adjoint to $\H$ we write $\H_\star$ for the composite $\pi_\star\circ \G\circ \H$.
 \end{definition}
 
+\todo[inline]{Is it important to have the data of two functors $\cC\to \cD$, $\cD\to\cA$, rather than just one functor $\cC\to\cA$? Again, I think this is the approach of Irakli-Piotr.}
+
 \begin{example}
   All examples we study in this paper will be given by the following data. First we fix $\cC$ as above and assume $\cC$ has a homotopy groups functor $\pi_\star$. We then let $R\in \CAlg(\cC)$ and put $\H:=-\otimes R$ valued in $\Mod(R)$ where it becomes symmetric monoidal (and preserves colimits by assumption). Then $\H_\star$ corresponds to taking the homotopy groups on the underlying $\cC$-objects of $-\otimes R$.
 \end{example}
 
-\subsection{The Adams Spectral Sequence of a Homological Context}
+\subsection{The Adams Spectral Sequence of a Homological Context} \todo[inline]{The material in this section is also covered by Irakli-Piotr I'm pretty sure}
 
 Here we elucidate some of our assumptions on a homological context $(\cC,\cD,\H,\pi_\star)$ by explaining how to construct the relevant Adams spectral sequence which will have the form:
 \[
@@ -416,6 +421,8 @@ The tensor product on $\cC$ restricts to $\cC^\omega_{\H}$ and $\H_\star:\cC^\om
   which is concentrated in the $0$-line isomorphic to $H(X)\otimes H(Y)$ due to the projectivity of either factor.
 \end{proof}
 
+\todo[inline]{I definitely believe this Kunneth SS exists in this generality, but is there a source for that? If not, we might want to write down a proof.}
+
 \begin{remark}
   Recall from \cite{Pst22} that a site is \textit{additive} if the coverings are provided by singletons and the underlying category is additive. 
 \end{remark}
@@ -447,6 +454,18 @@ is an equivalence. A sheaf is said to be spherical if the underlying presheaf is
 \begin{proposition}
   The category $\Syn_\H$ is presentably symmetric monoidal and comes equipped with a synthetic analog functor $\nu:\cC\to \Syn_\H$ defined by lifting the Yoneda embedding. The functor $\nu$ preserves filtered colimits and direct sums. It is in addition lax monoidal and for any $P\in \cC^\omega_\H$ the natural map $\nu(-\otimes X)\to \nu(-)\otimes \nu(P)$ is an equivalence.
 \end{proposition}
+
+\todo[inline]{Overall, I think this general definition of "synthetic spectra" seems to hold up. I'm surprised that it works in this generality and that this wasn't written down already by the likes of Piotr/Irakli/Robert etc.}
+
+(couldn't fit this in a todo environment) I have a few more thoughts about all this and where you could go from here: 
+
+\begin{itemize}
+    \item Like I said in some of the earlier comments, I think it would be a good idea to simplify some of the definitions and make sure we reference people (e.g. Piotr/Irakli) who have already come up with some of these notions.
+    \item Some other Piotr/Irakli stuff we could quote from here include thread structure/tau-localization/Ctau-mod
+    \item With these notions all set up, it should be straightforward then to start writing down all the categories we need that come out of bisynthetic spectra; e.g. Ctau/Clambda-mod, tau/lambda inverted categories, etc. and the categories these module categories are equivalent to
+    \item Question: for this def. of $\Sh_\Sigma(\cC^\omega_\H, \Sp)$, is it still true that Ctau-mod embeds in some "stable comodule" category related to $\H$? Would have to make the stable comodule category precise. This is probably related to the derived categories that Irakli/Piotr deal with
+\end{itemize}
+
 
 \subsection{Thread Structures and $\tau$}
 
@@ -577,3 +596,4 @@ is an equivalence. A sheaf is said to be spherical if the underlying presheaf is
 \subsection{The $\tau$-special fiber}
 
 \maxnote{I have no idea what to do for this at the moment, would love any ideas.}
+
