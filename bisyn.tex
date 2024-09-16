@@ -337,13 +337,11 @@ Note that if $\pi_\star:\cD\to \cA$ satisfies all of the above except that it fa
   A \textit{homological context} is the data of two presentably symmetric monoidal stable $\infty$-categories $\cC,\cD$, a symmetric monoidal left adjoint $\H:\cC\to \cD$, and a homotopy groups functor $\pi_\star:\cC\to \cA$. If $\G$ is the right adjoint to $\H$ we write $\H_\star$ for the composite $\pi_\star\circ \G\circ \H$.
 \end{definition}
 
-\todo[inline]{Is it important to have the data of two functors $\cC\to \cD$, $\cD\to\cA$, rather than just one functor $\cC\to\cA$? Again, I think this is the approach of Irakli-Piotr.}
-
 \begin{example}
   All examples we study in this paper will be given by the following data. First we fix $\cC$ as above and assume $\cC$ has a homotopy groups functor $\pi_\star$. We then let $R\in \CAlg(\cC)$ and put $\H:=-\otimes R$ valued in $\Mod(R)$ where it becomes symmetric monoidal (and preserves colimits by assumption). Then $\H_\star$ corresponds to taking the homotopy groups on the underlying $\cC$-objects of $-\otimes R$.
 \end{example}
 
-\subsection{The Adams Spectral Sequence of a Homological Context} \todo[inline]{The material in this section is also covered by Irakli-Piotr I'm pretty sure}
+\subsection{The Adams Spectral Sequence of a Homological Context}
 
 Here we elucidate some of our assumptions on a homological context $(\cC,\cD,\H,\pi_\star)$ by explaining how to construct the relevant Adams spectral sequence which will have the form:
 \[
@@ -485,8 +483,6 @@ For any site $\cT$, The Postnikov t-structure of $\Sp$ induces a t-structure on 
 
 \subsection{Thread Structures and $\tau$}
 
-
-
 The functor $\nu$ does not preserve (co)fiber sequences in general, although we will prove eventually that it preserves certain $\H$-exact cofibers. In particular, $\nu$ will not commute with formal suspensions. This failure is measured by a canonical comparison map
 \[
 \tau: \Sigma \circ \nu \to \nu \circ \Sigma
@@ -499,3 +495,329 @@ induced by the universal property of the pushout defining $\Sigma$. We will refe
 
 \end{document}
 
+(Peter) Here's a list of things we'll need here
+\begin{itemize}
+    \item Def of bisynthetic spectra, including stuff from \cite{Pst22} about $\Sigma_+^\infty$, $\Omega^\infty$
+    \item Properties of monoidal structure
+    \item Definition of $\nu_{\nu F}$ and trigraded spheres
+    \item Definition of trigraded homotopy classes of maps 
+    \item Lemma that $\nu_EF_{*,*}(-):(\Syn_E)_{\nu F}^{fp}\to\Comod_{\nu_EF_{*,*}\nu_EF}^{fp}$ is morphism of $\infty$-sites which reflects coverings and admits a common envelope
+    \item Other lemmas about other maps of $\infty$-sites? Or wait to do that later
+    \item Definition of Adams-type $E$-synthetic spectrum (prolly same as spectra one)
+    \item Lemma that $\nu_EF_{*,*}\nu_EF$ is Adams Hopf algebroid a la \cite[Def. 3.1]{Pst22}
+    \item Lemma that $map(\nu_{\nu F}P)\simeq \Omega^\infty(X(P))$
+    \item Lemma about when $\nu_{\nu F}$ is symmetric monoidal
+    \item Lemma about homotopy of $\nu_{\nu F}$-modules being lambda free
+\end{itemize}
+
+\section{$t$-structures}
+
+In the category $\Syn_E$ of $E$-synthetic spectra developed by \cite{Pst22}, there is a natural $t$-structure which plays an important role in the structure of the category. This $t$-structure is a specialization of a general $t$-structure on spherical sheaves, whose heart can also be identified:
+
+\begin{definition}[\cite{Pst22}]
+\label{con_cocon_defin}
+Suppose $\cC$ is an additive $\infty$-category and let $Sh_{\Sigma}^{\Sp}(\cC)$ denote the category of spectra-valued spherical sheaves on $\cC$. An object $X\in Sh_{\Sigma}^{\Sp}(\cC)$ is \textit{connective} if the sheafification of the presheaf $\pi_nX$ defined by
+$$
+c\in\cC\mapsto \pi_nX(c)
+$$
+satisfies $\pi_nX=0$ for $n<0$. An object $X$ is \textit{coconnective} if $\Omega^{\infty}X$ is a discrete sheaf of spaces.
+\end{definition}
+
+\begin{proposition}[\cite{Pst22}]
+\label{general_sheaf_tstruct_prop}
+The pair $(Sh_{\Sigma}^{\Sp}(\cC)_{\geq 0},Sh_{\Sigma}^{\Sp}(\cC)_{\leq 0})$ of full subcategories of connective and coconnective objects determines a right
+complete $t$-structure on $Sh_{\Sigma}^{\Sp}(\cC)$ compatible with filtered colimits. Moreover, there is a canonical equivalence $Sh_{\Sigma}^{\Sp}(\cC)^\heartsuit\simeq Sh_{\Sigma}^{\mathrm{Set}}(\cC)$ between the heart of this $t$-structure and the category of
+spherical sheaves of sets.
+\end{proposition}
+
+When specializing to $\cC=\Sp_E^{fp}$ for an Adams-type spectrum $E$, \cite{Pst22} shows that the functor of additive $\infty$-sites $E_*(-):\Sp_E^{fp}\to\Comod_{E_*E}^{fp}$ induces an equivalence on spherical sheaves of sets. Together with work of Goerss-Hopkins, this gives a nice identification of the heart $\Syn_E^\heartsuit$ of the $t$-structure on $\Syn_E$ in terms of $E_*E$-comodules:
+
+\begin{theorem}[\cite{GH05},\cite{Pst22}]
+If $E$ is an Adams-type spectrum, then the functor of additive $\infty$-sites $E_*(-):\Sp_E^{fp}\to\Comod_{E_*E}^{fp}$ induces an equivalence $Sh_{\Sigma}^{\mathrm{Set}}(\Sp_E^{fp})\simeq Sh_{\Sigma}^{\mathrm{Set}}(\Comod_{E_*E}^{fp}).$
+In particular, there are equivalences
+$$
+\Syn_E^{\heartsuit}\simeq Sh_{\Sigma}^{\mathrm{Set}}(\Comod_{E_*E}^{fp})\simeq \Comod_{E_*E}.
+$$
+\end{theorem}
+
+For $X\in\Syn_E$, \cite{Pst22} also identifies an explicit formula for the homotopy objects $\pi_k^\heartsuit X$ in terms of synthetic $E$-homology:
+
+\begin{theorem}[\cite{Pst22}]
+\label{SynE_homology_tstruct}
+    At the level of graded abelian groups, there's an isomorphism
+$$
+(\pi_k^\heartsuit X)_l\cong \nu E_{k+l,l}X
+$$
+In particular, $X$ is connective if and only if $\nu E_{k,w}X$ is concentrated in non-negative Chow degree $k-w\geq 0$.
+\end{theorem}
+
+If $X=\nu Y$ is the synthetic analog of a spectrum $Y$, the calculation
+$$
+\nu E_{*,*}\nu Y\cong \nu (E\otimes Y)_{*,*}\cong E_*Y[\tau],
+$$
+where $E_*Y$ is concentrated in bidegree $(k,k)$, shows that $\nu Y$ is always connective in this $t$-structure. In particular, this implies that $\nu Y\otimes C\tau$ lies in $\Syn_E^\heartsuit$. This fact is key in relating $\Mod_{C\tau}(\Syn_E)$ to $\Stable_{E_*E}$ and the $E$-Adams spectral sequence for $Y$ to the $\tau$-Bockstein spectral sequence for $\nu Y$ in $\Syn_E$.
+
+\bigskip
+
+In bisynthetic spectra $\Syn_{E,F}:=Sh_{\Sigma}^{\Sp}((\Syn_E)_{\nu F}^{fp})$, there are two parameters $\tau$ and $\lambda$. One should expect then that there are two $t$-structures to study: namely, one related to $E$ (i.e. $\tau$) and one related to $F$ (i.e. $\lambda$). This is indeed the case.
+
+\bigskip
+
+We first study the one related to $F$ in \ref{F_tstruct_subsec}. This $t$-structure comes about in the exact same way that the $t$-structure in $\Syn_E$ appears. We also prove several results about this $t$-structure, analogous to results in \cite{Pst22}, which will be useful later for identifying $\Syn_{E,F}[\lambda^{-1}]$ and $\Mod_{C\lambda}(\Syn_{E,F})$ in terms of more familiar categories.
+
+\bigskip
+
+We then study a $t$-structure related to $E$ in \ref{E_tstruct_subsec}. The connective objects of this $t$-structure are controlled by $\nu^2(E)$-homology, analogous to Theorem~\ref{SynE_homology_tstruct}. We also prove several results about this $t$-structure, analogous to results in \cite{Pst22}, which will be useful later for identifying $\Syn_{E,F}[\tau^{-1}]$ and $\Mod_{C\tau}(\Syn_{E,F})$ in terms of more familiar categories.
+
+\subsection{$t$-structure for $F$}
+\label{F_tstruct_subsec}
+
+Since $\Syn_{E,F}$ is the category of spherical sheaves on an additive $\infty$-structure, we immediately get a $t$-structure on $\Syn_{E,F}$ via Definition~\ref{con_cocon_defin} and Proposition~\ref{general_sheaf_tstruct_prop}:
+
+\begin{proposition}
+\label{F_bisyn_tstruct_prop}
+The pair $((\Syn_{E,F})_{\geq 0}^F,(\Syn_{E,F})_{\leq 0}^F)$ of full subcategories of connective and coconnective objects determines a right
+complete $t$-structure on $\Syn_{E,F}$ compatible with filtered colimits. Moreover, there is a canonical equivalence $\Syn_{E,F}^{F,\heartsuit}\simeq Sh_{\Sigma}^{\mathrm{Set}}((\Syn_E)_{\nu F}^{fp})$ between the heart of this $t$-structure and the category of
+spherical sheaves of sets.  
+\end{proposition}
+
+\begin{remark}
+We use the superscript $F$ to emphasize that this $t$-structure is related to $F$ and $\lambda$. This will become clearer later in the subsection when we relate the $t$-structure to $\nu^2F$-homology. We will also use the notation $\tau_{\geq n}^F, \tau_{\leq n}^F$ for the associated truncation functors.
+\end{remark}
+
+We can identify the heart in a similar manner to \cite{Pst22}:
+
+\begin{theorem}
+    The heart $\Syn_{E,F}^{F,\heartsuit}$ is equivalent to $\Comod_{\nu_EF_{*,*}\nu_EF}$. (monoidal conditions should be added too)
+\end{theorem}
+
+\begin{proof}
+    By Proposition~\ref{F_bisyn_tstruct_prop}, the heart is equivalent to $Sh_{\Sigma}^{\mathrm{Set}}((\Syn_E)_{\nu F}^{fp})$. By (ref. to lemma in Section 2), the morphism of $\infty$-sites $$\nu_EF_{*,*}(-):(\Syn_E)_{\nu F}^{fp}\to\Comod_{\nu_EF_{*,*}\nu_EF}^{fp}$$ is one which reflects coverings and admits a common envelope. By \cite[Rem. 2.50]{Pst22}, this induces an adjoint equivalence $$Sh_{\Sigma}^{\mathrm{Set}}((\Syn_E)_{\nu F}^{fp})\rightleftarrows Sh_{\Sigma}^{\mathrm{Set}}(\Comod_{\nu_EF_{*,*}\nu_EF}^{fp})\,.$$
+The bigraded Hopf algebroid $(\nu_EF_{*,*},\nu_EF_{*,*}\nu_EF)$ is Adams, in the sense of \cite[Def. 3.1]{Pst22}, by (Lemma in Section 2 which proves that it's Adams). By a bigraded version of \cite[2.1.12]{GH05}, \cite[Thm. 3.2]{Pst22} there is an equivalence
+$$
+\Comod_{\nu_EF_{*,*}\nu_EF}\simeq Sh_{\Sigma}^{\mathrm{Set}}(\Comod_{\nu_EF_{*,*}\nu_EF}^{fp}),
+$$
+and the result follows.
+\end{proof}
+
+Now we work towards identifying the homotopy objects $\pi_k^{F,\heartsuit}X$ in terms of $\nu^2F$-homology.
+
+\begin{lemma}
+\label{F_dual_tstruct_lemma}
+    For $X\in\Syn_{E,F}$, the graded components of the $\nu_EF_{*,*}\nu_EF$-comodule $\pi_k^{F,\heartsuit}X$ are described by
+    $$
+(\pi_k^{F,\heartsuit}X)_{l,m} \cong \colim_\alpha \pi_kX(\Sigma^{l,m}D\nu_E F_\alpha),
+    $$
+    where $F\simeq \colim_\alpha F_\alpha$ is a presentation of $F$ as a filtered colimit of $F$-finite projective spectra.
+\end{lemma}
+
+\begin{proof}
+    This is essentially a bigraded version of \cite[Lemma 4.17]{Pst22} and the proof is similar to the proof of that lemma. By \cite[Thm. 2.58]{Pst22}, the sheaf $\pi_k^{F,\heartsuit}X\in Sh_{\Sigma}^{\mathrm{Set}}((\Syn_E)_{\nu F}^{fp})$ is representable by some comodule $N$; i.e. $$(\pi_k^{F,\heartsuit}X)(-)\simeq \Hom_{\nu_EF_{*,*}\nu_EF}(\nu_EF_{*,*}(-),N).$$
+    Now notice that $\nu_EF_{*,*}\nu_EF\simeq \colim_\alpha \nu_EF_{*,*}\nu_EF_\alpha$, since $\nu_E$ commutes with filtered colimits, and $E_*(D\nu_EF_\alpha)\cong\Hom_{\nu_EF_{*,*}\nu_EF}(\nu_EF_{*,*}\nu_EF_\alpha,\nu_EF_{*,*})$. Then by \cite[Lemma 3.3]{Pst22}, as a bigraded abelian group
+    $$
+N_{l,m}\cong \colim_\alpha \pi_k^{F,\heartsuit}X(\Sigma^{l,m}D\nu_EF_\alpha).
+    $$
+    By a bigraded version of \cite[Lemma 3.25]{Pst22},
+    $$
+\colim_{\alpha}\pi_k^{F,\heartsuit}X(\Sigma^{l,m}D\nu_EF_\alpha)\cong\colim_{\alpha} \pi_kX(\Sigma^{l,m}D\nu_EF_\alpha),
+    $$
+    which completes the proof.
+\end{proof}
+
+\begin{theorem}
+\label{F_homol_tstruct_theorem}
+    For $X\in\Syn_{E,F}$, there is an isomorphism
+    $$
+(\pi_k^{F,\heartsuit}X)_{l,m}\cong\nu^2F_{k+l,m,l}X,
+    $$
+    where $\nu^2F_{*,*,*}(-)$ denotes bisynthetic $F$-homology.
+\end{theorem}
+
+\begin{proof}
+    Again, this is a similar proof to \cite[Thm. 4.18]{Pst22}. We have that
+    \begin{equation*}
+     \begin{aligned}
+      \nu^2F_{k+l,m,l}X&\cong [\bS^{k+l,m,l},\nu^2F\otimes X] \\
+      &\cong \colim_\alpha[\Sigma^k\nu_{\nu F}(\bS^{l,m}_E),\nu^2F_\alpha\otimes X] \\
+      &\cong \colim_\alpha [\Sigma^k\nu_{\nu F}(\Sigma^{l,m}D\nu_EF_\alpha),X] \\
+      &\cong \colim_\alpha \pi_kX(\Sigma^{l,m}D\nu_EF_\alpha) \\
+      &\cong (\pi_k^{F,\heartsuit}X)_{l,m}.
+    \end{aligned}   
+    \end{equation*}
+ The first isomorphism is by definition, the second isomorphism follows from (definition from Section 2 about trigraded spheres) and equivalence $\nu^2F\simeq\colim_\alpha \nu^2F_\alpha$, the fourth isomorphism follows from (lemma from Section 2 which shows that $map(\nu_{\nu F}P,X)\simeq \Omega^\infty(X(P))$ for $P\in(\Syn_E)_{\nu F}^{fp}$), and the fifth isomorphism follows from Lemma~\ref{F_dual_tstruct_lemma}.   
+\end{proof}
+
+As a corollary, we get the following analog of \cite[Cor. 4.19]{Pst22}:
+
+\begin{corollary}
+\label{F_chow_degree_cor}
+A bisynthetic spectrum $X\in\Syn_{E,F}$ is in $(\Syn_{E,F})_{\geq 0}^F$ if and only if $\nu^2F_{k,w,v}X =0$ for Chow degree $k-v<0$. 
+\end{corollary}
+
+\begin{proof}
+    In this $t$-structure, $X\in\Syn_{E,F}$ is in $(\Syn_{E,F})_{\geq 0}^F$ if and only if $\pi_k^{F,\heartsuit}X$ vanishes for $k<0$. By Theorem~\ref{F_homol_tstruct_theorem}, this happens exactly when $k-v<0$.
+\end{proof}
+
+This result is what motivates naming this $t$-structure after $F$. As a consequence, we see that the $\nu F$-synthetic analog of an $E$-synthetic spectrum $Y$ is always connective.
+
+\begin{corollary}
+    If $Y\in\Syn_E$, then $\nu_{\nu F}Y\in (\Syn_{E,F})_{\geq 0}^F$.
+\end{corollary}
+
+\begin{proof}
+    Consider the homology calculation
+\begin{equation*}
+    \begin{aligned}
+        \nu^2F_{*,*,*}\nu_{\nu F}Y &\cong \nu_{\nu F}(\nu F\otimes Y)_{*,*,*} \\
+        &\cong \nu F_{*,*} Y[\lambda]\, ,
+    \end{aligned}
+\end{equation*}
+where $\nu F_{k,w} Y$ lives in tridegree $(k,w,k)$. The first isomorphism follows from (lemma in Section 2 about when $\nu_{\nu F}$ is symmetric monoidal) and the second isomorphism follows (lemma in Section 2 about homotopy of $\nu F$-module). The result then follows from Corollary~\ref{F_chow_degree_cor}.
+\end{proof}
+
+This means that for the $\nu F$-synthetic analog of an $E$-synthetic spectrum $Y$, the tensor product $\nu_{\nu F}Y\otimes C\lambda$ lives in the heart $\Syn_{E,F}^{F,\heartsuit}$.
+
+\begin{corollary}
+If $Y\in\Syn_E$, then $\Sigma^{0,0,-1}\nu_{\nu F}Y\simeq \tau_{\geq 1}^F(\nu_{\nu F}Y)$ and $\nu_{\nu F} Y\otimes C\lambda\simeq \tau_{\leq 0}^F(\nu_{\nu F}Y)$. In particular, $\nu_{\nu F}Y\otimes C\lambda\in \Syn_{E,F}^{F,\heartsuit}$.  
+\end{corollary}
+
+\begin{proof}
+   Again, the proof is similar to the proof of \cite[Lemma 4.29]{Pst22}. Consider the cofiber sequence
+   $$
+\Sigma^{0,0,-1}\nu_{\nu F}Y\xrightarrow{\lambda}\nu_{\nu F}Y\to \nu_{\nu F}Y\otimes C\lambda
+   $$
+   By Corollary~\ref{F_chow_degree_cor}, it's clear that $\Sigma^{0,0,-1}\nu_{\nu F}Y$ is 1-connective. By using the definition of $\nu_{\nu F}$ and the colimit-comparison definition of $\lambda$, it follows that $\nu_{\nu F}Y\otimes C\lambda$ lives in $(\Syn_{E,F})_{\leq 0}^F$. The result then follows.
+\end{proof}
+
+\begin{remark}
+Similar to $\Syn_E$, we see that $\nu_{\nu F}Y\otimes C\lambda$ is lives in an algebraic category; namely the category of $\nu_EF_{*,*}\nu_E F$-comodules. In Section 4, we will show that, in fact, $\nu_{\nu F}Y\otimes C\lambda$ can be identified with the comodule $\nu_{E}F_{*,*}Y$ and there is an embedding $\Mod_{C\lambda}(\Syn_{E,F})\hookrightarrow \Stable_{\nu_EF_{*,*}\nu_EF}$ of $C\lambda$-modules into the stable comodule category associated to the bigraded Hopf algebroid $(\nu_EF_{*,*},\nu_EF_{*,*}\nu_EF)$.    
+\end{remark}
+
+\subsection{$t$-structure for $E$}
+\label{E_tstruct_subsec}
+
+\section{Specializations by $\tau,\lambda$}
+
+\section{The Categorified Miller Square}
+
+\printbibliography
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Recollections on Synthetic Spectra}
+
+\begin{definition}
+  Given $E$ any spectrum and $X$ a finite spectrum, $X$ is said to be $E$-finite projective if $E_*X$ is finitely generated and projective over $E_*$. We denote the full subcategory of spectra spanned by such $\Sp^\fp_E$. A map $X\to Y$ in $\Sp^\fp_E$ is said to be a cover if it is an epimorphism after taking $E$-homology.
+\end{definition}
+
+\begin{definition}
+  A site $\cC$ which is additive is said to be in addition excellent if it is equipped with a symmetric monoidal structure such that all objects admit duals and such that the functors $-\otimes c$ preserve covers for all $c\in \cC$.
+\end{definition}
+
+\begin{lemma}
+  The category $\Sp^\fp_E$ is additive and acquires the structure of a site with the covering families given by singletons of $E$-epimorphisms as above. Equipped with the smash product of spectra, it is excellent.
+\end{lemma}
+
+
+\begin{definition}
+  A spectrum $E$ is said to be Adams-type if there exists a filtered diagram $X_\alpha$ such that each $X_\alpha$ is in $\Sp^\fp_E$ and such that the natural map $E^*X_\alpha\to \Hom_{E_*}(E_*X_\alpha, E_*)$ is an isomorphism.
+\end{definition}
+
+
+
+\begin{definition}
+  The category $\Syn_E$ of synthetic spectra is the category of spherical presheaves of spectra on the excellent site $\Sp^\fp_E$.
+\end{definition}
+
+
+
+\section{The Bisynthetic Model}
+
+\subsection{Synthetic finite projectives}
+
+\begin{definition}
+  Given $F,X\in \Syn_E$ we say that $X$ is $F$-finite projective if it compact as a synthetic spectrum and if $F_{*,*}X:=\pi_{*,*}(F\otimes X)$ is a finitely generated projective module over $F_{*,*}:=\pi_{*,*}F$. We denote the full subcategory of $F$-finite projectives $(\Syn_E)_F^\fp$. A map $X\to Y$ of $F$-finite projectives is said to be a cover if it is an epimorphism after applying taking $F$-homology.
+\end{definition}
+
+\begin{lemma}
+  The category $\Syn_F^\fp$ is an additive site when equipped with the covering families consisting of single $F_{*,*}$-epimorphisms.
+\end{lemma}
+
+\begin{proof}
+  The proof is identical to \cite[Lemma 3.22]{piotr}.
+\end{proof}
+
+\begin{lemma}
+  Equipped with the tensor product of synthetic spectra, $(\Syn_E)_F^\fp$ is excellent.
+\end{lemma}
+
+\begin{proof}
+  all these proofs look like the one in piotrs paper goes through identically, but I am going to come back to that later.
+\end{proof}
+
+\section{Special and Generic fibers over $\lambda$ and $\tau$}
+
+\subsection{The $\lambda$-generic fiber}
+
+\begin{theorem}
+  The subcategory of $\lambda$-local objects in $\Bisyn$ is canonically equivalent to $\Syn_E$.
+\end{theorem}
+
+\subsection{The $\lambda$-special fiber}
+
+\begin{theorem}
+  The category $\Mod(\Bisyn, \bS/\lambda)$ is a full subcategory of $\Stable(\nu F_{*,*}\nu F)$ which is an equivalence if (???). Restricted to the image of $\nu_F$, this equivalence takes an $E$-synthtetic spectrum to its $\nu F$-homology.
+\end{theorem}
+
+\subsection{The $\tau$-generic fiber}
+
+\begin{notation}
+  We will write $(\Syn_E)^{\tau-\loc}_F$ for the site $(\Syn_E)_{\tau^{-1}F}^\fp$.
+\end{notation}
+
+\begin{lemma}
+  The functor $\tau^{-1}$ induces a morphism of excellent sites $(\Syn_E)^\fp_{F}\to (\Syn_E)^{\tau-\loc}_F$.
+\end{lemma}
+
+\begin{proof}
+  Because the category of $\tau$-local synthetic spectra is a smashing localization, inverting $\tau$ preserves compact objects. Then note that there is an equivalence $\tau^{-1}F\otimes \tau^{-1}X\simeq \tau^{-1}(F\otimes X)$, so that we can compute:
+  \[
+  (\tau^{-1}F)_{*,*}X \cong F_{*,*}X[\tau^{-1}]  
+  \]
+  and if $F_{*,*}X$ is finitely generated and projective over $F_{*,*}$, then $F_{*,*}X[\tau^{-1}]$ will be finitely generated and projective over $F_{*,*}[\tau^{-1}]\cong (\tau^{-1}F)_{*,*}$ and this process will also preserve epimorphisms. Because the relevant pullbacs in both sites are computed in $\Syn_E$ they are also pushouts and the left adjoint $\tau^{-1}$ will preserve them. The symmetric monoidality of $\tau^{-1}$ shows that this morphism of sites upgrades to one of excellent sites. 
+\end{proof}
+
+\begin{lemma}
+  In the induced adjunction $F:\Bisyn \to \Sh_{\Sigma}((\Syn_E)^\{\tau-\loc}_F):G$, the right adjoint $G$ is cocontinuous, $G(X)$ is $\tau$-local for all $X$, and the essential image consists of all $\tau$-local bisynthetic spectra.
+\end{lemma}
+
+\begin{proof}
+  
+\end{proof}
+
+\begin{proposition}
+  The subcategory of $\tau$-local objects in $\Bisyn$ is equivalent to the category of spherical sheaves on the site $(\Syn_E)^{\tau-\loc}_{\nu F}$.
+\end{proposition}
+
+\begin{theorem}
+  There is an equivalence of spherical sheaves over $(\Syn_E)^{\tau-\loc}_{\nu F}$ and $\Sp^\fp_F$. As a result, the category of $\tau$-local bisynthetic spectra is equivalent to $\Syn_F$.
+\end{theorem}
+
+\subsection{The $\tau$-special fiber}
+
+\maxnote{I have no idea what to do for this at the moment, would love any ideas.}
