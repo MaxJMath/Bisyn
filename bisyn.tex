@@ -218,6 +218,8 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 \newcommand{\Ab}{\mathrm{Ab}}
 \newcommand{\Sp}{{\mathcal{S}\mathrm{p}}}
 \newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Set}{{\mathcal{S}\mathrm{et}}}
+
 
 \newcommand{\HE}{\mathcal{H}\mathrm{Env}}
 \newcommand{\HESt}{\HE^{\Sp}}
@@ -384,7 +386,7 @@ In this section we fix a homological context (Definition \ref{def:homcontext})
 whose composition is denoted $H_\star$. To such a context we will assocaited a site $\cC_{\H}^\omega$ which will encode the relevant properties of the $\H$-Adams spectral sequence.
 
 \begin{definition}
-  With notation as above, the $\H$-finite site of $\cC$, denoted $\cC^{\omega}_{\H}$, is the full subcategory of $\cC^\omega$ consisting of objects $X$ such that $\H(X)$ is dualizable in $\cA$. The coverings in $\cC^\omega_{\H}$ are the single maps $f:X\to Y$ such that $\H(f)$ is an epimorphism, which we call $\H$-epimorphisms for short.
+  With notation as above, the $\H$-finite site of $\cC$, denoted $\cC^{\omega}_{\H}$, is the full subcategory of $\cC^\omega$ consisting of objects $X$ such that $\H_{\star}(X)$ is dualizable in $\cA$. The coverings in $\cC^\omega_{\H}$ are the single maps $f:X\to Y$ such that $\H(f)$ is an epimorphism, which we call $\H$-epimorphisms for short.
 \end{definition}
 
 \begin{remark}
@@ -455,145 +457,45 @@ is an equivalence. A sheaf is said to be spherical if the underlying presheaf is
   The category $\Syn_\H$ is presentably symmetric monoidal and comes equipped with a synthetic analog functor $\nu:\cC\to \Syn_\H$ defined by lifting the Yoneda embedding. The functor $\nu$ preserves filtered colimits and direct sums. It is in addition lax monoidal and for any $P\in \cC^\omega_\H$ the natural map $\nu(-\otimes X)\to \nu(-)\otimes \nu(P)$ is an equivalence.
 \end{proposition}
 
-\todo[inline]{Overall, I think this general definition of "synthetic spectra" seems to hold up. I'm surprised that it works in this generality and that this wasn't written down already by the likes of Piotr/Irakli/Robert etc.}
+\begin{remark}
+  Note that whenever $\one_{\cC}\in \cC^\omega_\H$ we have that $\nu(\one_{\cC})$ is the unit for the symmetric monoidal structure on $\Syn_{\H}$.
+\end{remark}
 
-(couldn't fit this in a todo environment) I have a few more thoughts about all this and where you could go from here: 
+\subsection{Algebraic Comodules}
 
-\begin{itemize}
-    \item Like I said in some of the earlier comments, I think it would be a good idea to simplify some of the definitions and make sure we reference people (e.g. Piotr/Irakli) who have already come up with some of these notions.
-    \item Some other Piotr/Irakli stuff we could quote from here include thread structure/tau-localization/Ctau-mod
-    \item With these notions all set up, it should be straightforward then to start writing down all the categories we need that come out of bisynthetic spectra; e.g. Ctau/Clambda-mod, tau/lambda inverted categories, etc. and the categories these module categories are equivalent to
-    \item Question: for this def. of $\Sh_\Sigma(\cC^\omega_\H, \Sp)$, is it still true that Ctau-mod embeds in some "stable comodule" category related to $\H$? Would have to make the stable comodule category precise. This is probably related to the derived categories that Irakli/Piotr deal with
-\end{itemize}
+Recall that from section \ref{todo} the functor $\H$ and its right adjoint $\G$ induce a comonad $\H\G$ on $\cC$ whose comodule category $\Comod(\H\G)$ encodes the Adams spectral sequence for $\H$. In this section we explain how this additional structure is relfected in the algebraic object $\H_\star$. The upshot is that 
+
+\begin{definition}
+  
+\end{definition}
+
+\subsection{The natural $t$-structure}
+
+For any site $\cT$, The Postnikov t-structure of $\Sp$ induces a t-structure on the category of sheaves of spectra on $\cT$ which is inherited by the subcategory of spherical sheaves as in \cite{todo}. This t-structure plays an important role in the structure theory of the sequel.
+
+\begin{proposition}
+  The Postnikov t-structure on $\Sp$ induces a right-complete t-structure on $\Syn_{\H}$ compatible with filtered colimits. The coconnective part is determined levelwise and the heart is equivalent to the category $\Sh_{\Sigma}(\cC_{\H}^\omega, \Set)$.
+\end{proposition}
+
+\begin{proof}
+  The result would follow from \cite[Proposition 2.16]{Pst22} if we could identify $\Sh_{\Sigma}(\cC_{\H}^\omega, \Set)$ with the 
+\end{proof}
+
 
 
 \subsection{Thread Structures and $\tau$}
 
-\subsection{Relationship to the $\H$-Adams Spectral sequence}
 
-\section{Bisynthetic Spectra}
 
-\section{Specializations by $\tau,\lambda$}
+The functor $\nu$ does not preserve (co)fiber sequences in general, although we will prove eventually that it preserves certain $\H$-exact cofibers. In particular, $\nu$ will not commute with formal suspensions. This failure is measured by a canonical comparison map
+\[
+\tau: \Sigma \circ \nu \to \nu \circ \Sigma
+\]
+induced by the universal property of the pushout defining $\Sigma$. We will refer to this map as the \textit{deformation parameter} of the deformation $\Syn_\H$ of $\cC$. 
 
-\section{The Categorified Miller Square}
+\subsection{The $\tau$-local locus}
+
+\subsection{The mod-$\tau$ locus}
+
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Recollections on Synthetic Spectra}
-
-\begin{definition}
-  Given $E$ any spectrum and $X$ a finite spectrum, $X$ is said to be $E$-finite projective if $E_*X$ is finitely generated and projective over $E_*$. We denote the full subcategory of spectra spanned by such $\Sp^\fp_E$. A map $X\to Y$ in $\Sp^\fp_E$ is said to be a cover if it is an epimorphism after taking $E$-homology.
-\end{definition}
-
-\begin{definition}
-  A site $\cC$ which is additive is said to be in addition excellent if it is equipped with a symmetric monoidal structure such that all objects admit duals and such that the functors $-\otimes c$ preserve covers for all $c\in \cC$.
-\end{definition}
-
-\begin{lemma}
-  The category $\Sp^\fp_E$ is additive and acquires the structure of a site with the covering families given by singletons of $E$-epimorphisms as above. Equipped with the smash product of spectra, it is excellent.
-\end{lemma}
-
-
-\begin{definition}
-  A spectrum $E$ is said to be Adams-type if there exists a filtered diagram $X_\alpha$ such that each $X_\alpha$ is in $\Sp^\fp_E$ and such that the natural map $E^*X_\alpha\to \Hom_{E_*}(E_*X_\alpha, E_*)$ is an isomorphism.
-\end{definition}
-
-
-
-\begin{definition}
-  The category $\Syn_E$ of synthetic spectra is the category of spherical presheaves of spectra on the excellent site $\Sp^\fp_E$.
-\end{definition}
-
-
-
-\section{The Bisynthetic Model}
-
-\subsection{Synthetic finite projectives}
-
-\begin{definition}
-  Given $F,X\in \Syn_E$ we say that $X$ is $F$-finite projective if it compact as a synthetic spectrum and if $F_{*,*}X:=\pi_{*,*}(F\otimes X)$ is a finitely generated projective module over $F_{*,*}:=\pi_{*,*}F$. We denote the full subcategory of $F$-finite projectives $(\Syn_E)_F^\fp$. A map $X\to Y$ of $F$-finite projectives is said to be a cover if it is an epimorphism after applying taking $F$-homology.
-\end{definition}
-
-\begin{lemma}
-  The category $\Syn_F^\fp$ is an additive site when equipped with the covering families consisting of single $F_{*,*}$-epimorphisms.
-\end{lemma}
-
-\begin{proof}
-  The proof is identical to \cite[Lemma 3.22]{piotr}.
-\end{proof}
-
-\begin{lemma}
-  Equipped with the tensor product of synthetic spectra, $(\Syn_E)_F^\fp$ is excellent.
-\end{lemma}
-
-\begin{proof}
-  all these proofs look like the one in piotrs paper goes through identically, but I am going to come back to that later.
-\end{proof}
-
-\section{Special and Generic fibers over $\lambda$ and $\tau$}
-
-\subsection{The $\lambda$-generic fiber}
-
-\begin{theorem}
-  The subcategory of $\lambda$-local objects in $\Bisyn$ is canonically equivalent to $\Syn_E$.
-\end{theorem}
-
-\subsection{The $\lambda$-special fiber}
-
-\begin{theorem}
-  The category $\Mod(\Bisyn, \bS/\lambda)$ is a full subcategory of $\Stable(\nu F_{*,*}\nu F)$ which is an equivalence if (???). Restricted to the image of $\nu_F$, this equivalence takes an $E$-synthtetic spectrum to its $\nu F$-homology.
-\end{theorem}
-
-\subsection{The $\tau$-generic fiber}
-
-\begin{notation}
-  We will write $(\Syn_E)^{\tau-\loc}_F$ for the site $(\Syn_E)_{\tau^{-1}F}^\fp$.
-\end{notation}
-
-\begin{lemma}
-  The functor $\tau^{-1}$ induces a morphism of excellent sites $(\Syn_E)^\fp_{F}\to (\Syn_E)^{\tau-\loc}_F$.
-\end{lemma}
-
-\begin{proof}
-  Because the category of $\tau$-local synthetic spectra is a smashing localization, inverting $\tau$ preserves compact objects. Then note that there is an equivalence $\tau^{-1}F\otimes \tau^{-1}X\simeq \tau^{-1}(F\otimes X)$, so that we can compute:
-  \[
-  (\tau^{-1}F)_{*,*}X \cong F_{*,*}X[\tau^{-1}]  
-  \]
-  and if $F_{*,*}X$ is finitely generated and projective over $F_{*,*}$, then $F_{*,*}X[\tau^{-1}]$ will be finitely generated and projective over $F_{*,*}[\tau^{-1}]\cong (\tau^{-1}F)_{*,*}$ and this process will also preserve epimorphisms. Because the relevant pullbacs in both sites are computed in $\Syn_E$ they are also pushouts and the left adjoint $\tau^{-1}$ will preserve them. The symmetric monoidality of $\tau^{-1}$ shows that this morphism of sites upgrades to one of excellent sites. 
-\end{proof}
-
-\begin{lemma}
-  In the induced adjunction $F:\Bisyn \to \Sh_{\Sigma}((\Syn_E)^\{\tau-\loc}_F):G$, the right adjoint $G$ is cocontinuous, $G(X)$ is $\tau$-local for all $X$, and the essential image consists of all $\tau$-local bisynthetic spectra.
-\end{lemma}
-
-\begin{proof}
-  
-\end{proof}
-
-\begin{proposition}
-  The subcategory of $\tau$-local objects in $\Bisyn$ is equivalent to the category of spherical sheaves on the site $(\Syn_E)^{\tau-\loc}_{\nu F}$.
-\end{proposition}
-
-\begin{theorem}
-  There is an equivalence of spherical sheaves over $(\Syn_E)^{\tau-\loc}_{\nu F}$ and $\Sp^\fp_F$. As a result, the category of $\tau$-local bisynthetic spectra is equivalent to $\Syn_F$.
-\end{theorem}
-
-\subsection{The $\tau$-special fiber}
-
-\maxnote{I have no idea what to do for this at the moment, would love any ideas.}
 
