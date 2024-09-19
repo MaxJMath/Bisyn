@@ -292,8 +292,6 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 
 (Peter) Here's a list of things we'll need here
 \begin{itemize}
-    \item Definition of $\nu_{\nu F}$ and trigraded spheres
-    \item Definition of trigraded homotopy classes of maps 
     \item Lemma that $\nu_EF_{*,*}(-):(\Syn_E)_{\nu F}^{fp}\to\Comod_{\nu_EF_{*,*}\nu_EF}^{fp}$ is morphism of $\infty$-sites which reflects coverings and admits a common envelope
     \item Other lemmas about other maps of $\infty$-sites? Or wait to do that later
     \item Definition of Adams-type $E$-synthetic spectrum (prolly same as spectra one)
@@ -307,6 +305,7 @@ Finished so far (I think, let me know if you wanted more)
   \item Def of bisynthetic spectra, including stuff from \cite{Pst22} about $\Sigma_+^\infty$, $\Omega^\infty$
   \item Properties of monoidal structure
   \item Lemma about $\Omega^\infty X(P)=\Map(\nu P, X)$
+  \item Definition of $\nu_{\nu F}$ and trigraded spheres
 \end{itemize}
 
 \section{Categorical Preliminaries and Generalized Synthetic Spectra}
@@ -330,7 +329,7 @@ Throughout this section we fix a presentably symmetric monoidal stable $\infty$-
 
 Both examples above frequently arise as special cases of the following:
 
-\begin{example}[Pic Grading]
+\begin{example}
   If $\cD$ is monoidal and $X$ is a Picard-object, i.e., it is $\otimes$-invertible, then the functor $-\otimes X$ forms a local grading on $\cD$.
 \end{example}
 
@@ -397,8 +396,8 @@ In this section we fix a homological context (Definition \ref{def:homcontext})
 \]
 whose composition is denoted $H_\star$. To such a context we will assocaited a site $\cC_{\H}^\fp$ which will encode the relevant properties of the $\H$-Adams spectral sequence.
 
-\begin{definition}
-  With notation as above, the $\H$-finite site of $\cC$, denoted $\cC^{\fp}_{\H}$, is the full subcategory of $\cC^\omega$ consisting of objects $X$ such that $\H_{\star}(X)$ is finitely generated and projective in $\cA$. The coverings in $\cC^\fp_{\H}$ are the single maps $f:X\to Y$ such that $\H(f)$ is an epimorphism, which we call $\H$-epimorphisms for short.
+\begin{definition}\label{def:projectivesite}
+  With notation as above, the $\H$-projective site of $\cC$, denoted $\cC^{\fp}_{\H}$, is the full subcategory of $\cC^\omega$ consisting of objects $X$ such that $\H_{\star}(X)$ is finitely generated and projective in $\cA$. The coverings in $\cC^\fp_{\H}$ are the single maps $f:X\to Y$ such that $\H(f)$ is an epimorphism, which we call $\H$-epimorphisms for short.
 \end{definition}
 
 \begin{remark}
@@ -459,11 +458,11 @@ F(X\amalg Y)\to F(X)\times F(Y)
 \]
 is an equivalence. A sheaf is said to be spherical if the underlying presheaf is, and the sheafification functor when it exists sends spherical sheaves to spherical presheaves. Spherical presheaves are very well behaved when the category $\cC$ is additive. In particular, in this case we get canonical lifts to grouplike commutative monoids in $\cD$, so long as these make sense. As a result, spherical sheaves of spaces on $\cC$ lift canonically to spherical sheaves of connective spectra.
 
-\begin{definition}
+\begin{definition}\label{def:synsp}
   The category of of Synthetic Spectra with respect to the context above is the category of spherical sheaves of spectra $\Sh^\Sp_\Sigma(\cC^\omega_\H)$ on the $\H$-finite site. We will often drop much of the context data and refer to this as the category $\Syn_\H$ of $\H$-synthetic spectra.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:synispsms}
   The category $\Syn_\H$ is presentably symmetric monoidal and stable.
 \end{lemma}
 
@@ -481,11 +480,11 @@ There is then an adjunction (\cite{Pst22})
 \]
 which allows us to lift both to functors valued in spherical presheaves. Indeed, because spherical presheaves of spaces canonically lift to groupline $\bE_\infty$-monoids levelwise, the functor $\Sigma_+^\infty$ identifies the source with the full subcategory of the target consisting of those objects which are connective under the induced t-structure (see \ref{todo}), so that spherical sheaves of spaces admit canonical lifts to spherical sheaves of spectra.
 
-\begin{definition}[Synthetic Analog Functor]
+\begin{definition}[Synthetic Analog Functor]\label{def:synanalog}
   The synthetic analog functor $\nu:\cC\to \Syn_\H$ is defined to be $\Sigma_+^\infty \hat y$, the canonical lift of $\hat y$ to a spherical sheaf of spectra.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:analogprops}
    The category $\Syn_H$ and its synthetic analog functor enjoy the following properties:
    \begin{enumerate}
     \item For all $P\in \cC_\H^\fp$ there is an equivalence $\Map(\nu P, X)\simeq \Omega^\infty X(P)$.
@@ -558,7 +557,6 @@ The functor $\nu$ does not preserve (co)fiber sequences in general, although we 
 induced by the universal property of the pushout defining $\Sigma$. We will refer to this map as the \textit{deformation parameter} of the deformation $\Syn_\H$ of $\cC$. 
 
 
-
 \section{Bisynthetic Spectra}
 
 Having established the necessary categorical preliminaries, the remainder of this article will study our category of Bisynthetic spectra. The following convention will be enforced throughout the remainder of the document unless specifically stated otherwise. 
@@ -572,7 +570,15 @@ Having established the necessary categorical preliminaries, the remainder of thi
 \end{convention}
 
 \begin{definition}
-  The category of Bisynthetic spectra, denoted $\Syn_{E,F}$, is the synthetic category associated to (the homology theory induced by) the object $\nu_E F\in \Syn_E$. Explicitly we take the site of $\nu_E F$ projectives, denoted $(\Syn_E)_{\nu_E F}^\fp$, to be the full subcategory of $\Syn_E$ containing those compact objects whose $\nu_E F$ homology is finitely generated and projective over $\nu_E F_{**}$. The category $\Syn_{E,F}$ is then the category of spherical sheaves of spectra on this site.
+  The homological context for $(E,F)$-bisynthetic spectra is given by the pair
+  \[
+  \Syn_{E} \xrightarrow{-\otimes \nu_E F} \Mod(\nu_E F) \xrightarrow{\pi_{*,*}} \Fun(\bZ^2, \Ab)
+  \]
+  and the resulting site of Definition \ref{def:projectivesite} is denoted $(\Syn_E)_{\nu_E F}^\fp$. It can be explicitly described as the full subcategory of $\Syn_E$ containing those compact objects whose $\nu_E F$ homology is finitely generated and projective over $\nu_E F_{**}$.
+\end{definition}
+
+\begin{definition}
+  The category of Bisynthetic spectra $\Syn_{E,F}$ is the category of synthetic objects (Definition \ref{def:synsp}) with respect to the $(E,F)$-bisynthetic homological context, i.e., it is the category of spherical sheaves on the site $(\Syn_E)_{\nu_E F}^\fp$. We will denote the synthetic analog functor (definition \ref{def:synanalog}) by simply $\nu_F$ for brevity.
 \end{definition}
 
 \begin{proposition}
@@ -583,11 +589,35 @@ Having established the necessary categorical preliminaries, the remainder of thi
   which is lax monoidal, fully faithful, and preserves filtered colimits. 
 \end{proposition}
 
+\begin{proof}
+  todo.
+\end{proof}
+
 \begin{notation}
   We will write $\nu^2$ for the functor $\nu_F\circ \nu_E$. Note that this functor again is fully faithful, preserves filtered colimits, and is lax monoidal as a composition of such functors. Note that the unit for $\Syn_{E,F}$ is $\nu^2(\bS)$; we will abuse notation and write $\bS$ for this object.
 \end{notation}
 
-The category $\Syn_{E,F}$ comes naturally equipped with two deformation paramteres. The category $\Syn_E$ naturally has a parameter $\tau$, and we will again denote $\nu_{F}(\tau)$ by $\tau$. The second parameter comes from the deformation along $\nu F$, and we will denote it $\lambda$. A common theme in this paper is that results involving $\lambda$ tend to follow from formal arguments about the synthetic construction, whereas arguments about $\tau$ will require extra work. The main theorem of this section, which we will prove in parts, is the following:
+\begin{definition}
+  We will consider $\Syn_{E,F}$ to be a trigraded category, with the convention
+  \[
+  \bS^{k,w,v}:=\Sigma^{k-v}\nu_F(\bS^{v,w})=\Sigma^{k-v}\nu_F(\Sigma^{v-w}\nu_E(\bS))
+  \]
+  and denote by $\Sigma^{k,w,v}:\Syn_{E,F}\to \Syn_{E,F}$ given by $-\otimes \bS^{k,w,v}$.
+\end{definition}
+
+\begin{lemma}
+  There are equivalences $\bS^{k,w,v}\otimes \bS^{k',w',v'}$.
+\end{lemma}
+
+\begin{definition}
+  We define the trigraded mapping objects between bisynthetic spectra to be
+  \[
+  [X,Y]_{k,w,v}=[\Sigma^{k,w,v}X, Y]
+  \]
+  and trigraded homotopy groups $\pi_{k,w,v}X=[\bS, X]_{k,w,v}$.
+\end{definition}
+
+The category $\Syn_{E,F}$ comes naturally equipped with two deformation paramteres. The category $\Syn_E$ naturally has a parameter $\tau$, and we will again denote $\nu_{F}(\tau)$ by $\tau$.\footnote{The reader familiar with synthetic spectra may wonder whether the class $\nu_F(\tau)$ is $\lambda$-divisible. However, our assumptions on the spectra $E,F$ guarantee that $\tau$ will be detected by $\nu_E F$ and therefore it has filtration $0$ and is not divisible by $\lambda$.} The second parameter comes from the deformation along $\nu F$, and we will denote it $\lambda$. A common theme in this paper is that results involving $\lambda$ tend to follow from formal arguments about the synthetic construction, whereas arguments about $\tau$ will require extra work. The main theorem of this section, which we will prove in parts, is the following:
 
 \begin{theorem}
   The structure of the category $\Syn_{E,F}$ with respect to the parameters $\lambda, \tau$ admits the following identifications:
