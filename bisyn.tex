@@ -383,9 +383,7 @@ Note that the object $\Coop(\H)$ is acquires both a left and right module struct
   todo. Should be identical to the blue book proof.
 \end{proof}
 
-\subsection{The $\H$-Adams Spectral Sequence}
-
-Maybe just cite Krause?
+One consequence of the homological comonad is that it leads to a natural construction of an Adams spectral sequence associated to our homological context. For a complete account see \cite{todo}, but briefly the Adams spectral sequence arises as the spectral sequence assocaited to the cosimplicial object whose $n$th term is given by self-composing the monad $n+1$ times. The maps in the cosimplicial diagram are the obvious ones given by the comultiplication on the comonad and todo.
 
 \subsection{$\H$-finite sites}
 
@@ -677,7 +675,7 @@ Having established the necessary categorical preliminaries, the remainder of thi
   Given a triple $(t,w,v)$ we will say that it has $E$-Chow degree $t-w$ and $F$-Chow-degree $t-v$.
 \end{definition}
 
-\subsection{A Tale of Two t-Structures}
+\section{A Tale of Two t-Structures}
 
 There is a natural t-structure on $\Syn_{E,F}$ given by the sheaf t-structure of todo. 
 
@@ -786,11 +784,11 @@ As a consequence, we see that the $\nu F$-synthetic analog of an $E$-synthetic s
       Consider the homology calculation
   \begin{equation*}
       \begin{aligned}
-          \nu^2F_{*,*,*}\mu_FY &\cong \mu_F(\nu F\otimes Y)_{*,*,*} \\
-          &\cong \nu F_{*,*} Y[\lambda]\, ,
+          \nu^2F_{t,w,v}\mu_FY &\cong \mu_F(\nu F\otimes Y)_{t,w,v} \\
+          &\cong \nu F_{t,w} Y[\lambda]\, ,
       \end{aligned}
   \end{equation*}
-  where $\nu F_{k,w} Y$ lives in tridegree $(k,w,k)$. The first isomorphism follows from (lemma in Section 2 about when $\mu_F$ is symmetric monoidal) and the second isomorphism follows (lemma in Section 2 about homotopy of $\nu F$-module). The result then follows from Corollary~\ref{F_chow_degree_cor}.
+  where $\nu F_{t,w} Y$ lives in tridegree $(t,w,t)$. The first isomorphism follows from (lemma in Section 2 about when $\mu_F$ is symmetric monoidal) and the second isomorphism follows (lemma in Section 2 about homotopy of $\nu F$-module). The result then follows from Corollary~\ref{F_chow_degree_cor}.
   \end{proof}
   
   This means that for the $\nu F$-synthetic analog of an $E$-synthetic spectrum $Y$, the tensor product $\mu_FY\otimes C\lambda$ lives in the heart $\Syn_{E,F}^{F,\heartsuit}$.
@@ -830,7 +828,59 @@ To prove this, we will show that both are equivalent to an intermediate category
   \end{itemize}
 \end{definition}
 
-Our proof of Theorem \ref{thm:taulocal} will proceed first by showing that the site described above forms recovery pair $\tau^{-1}\Syn_{E,F}$ and then by comparing the site in this pair to $\Sp_F^\fp$ via the double realization $\Re^2$.
+Our proof of Theorem \ref{thm:taulocal} will proceed first by showing that the site described above forms recovery pair $\tau^{-1}\Syn_{E,F}$ and then by comparing the site in this pair to $\Sp_F^\fp$ via the double realization $\Re^2$. We begin by establishing lemmas relating the two sites.
+
+\begin{lemma}
+  There is an equivalence of sites $\Sp_F^\fp\simeq (\tau^{-1}\Syn_E)^{\fp}_{\tau^{-1}\nu_E F}$ where the right-hand-side has our usual meaning: $\tau$-local $E$-synthetic spectra which are compact (in $\tau^{-1}\Syn_E$) and have finitely generated and projective $\tau^{-1}\nu_EF$-homology.
+\end{lemma}
+
+\begin{proof}
+  This is immediate from the symmetric monoidal equivalence $\tau^{-1}\Syn_{E}\simeq \Sp$ where we see that the conditions defining the sites on both sides match up across this equivalence.
+\end{proof}
+
+\begin{lemma}
+  If $X\in (\tau^{-1}\Syn_{E,F})^\fp$ then $\Re^F(X)\in \Syn_E$ is again $\tau$-local and compact as an object of $\tau^{-1}\Syn_E$.
+\end{lemma}
+
+\begin{proof}
+  The first claim follows from that fact that $\mu_F$ is a section of $\Re^{F}$. The second follows from TODO.
+\end{proof}
+
+\begin{lemma}
+  If $X\in \tau^{-1}\Syn_{E,F}$ has finitely generated and projective $\nu^2F$-homology, then $\Re^F(X)$ has finitely generated and projective $\nu F$-homology. If $f:X\to Y$ is a $\nu^2F$-homology epimorphism, then $\Re(f)$ is a $\nu_E F$-homology epimorphism. Moreover, if $X,Y\in \tau^{-1}\Syn_{E,F}$ have $\nu^2F$-homology generated in $F$-Chow degree $0$ then if $f:X\to Y$ is a $\nu_EF$-homology isomorphism after realization, it must have been a $\nu^2F$-homology isomorphism to begin with.
+\end{lemma}
+
+\begin{proof}
+  Because $\Re^F$ corresponds to inverting $\lambda$, up to regrading this is just the fact that inverting a class preserves projectives, finite generation, and epimorphisms (over the localized ring). The final claim follows from that fact that in $F$-Chow degree $0$ we have that $\nu^2F_{***}X\cong \nu_E F_{**}X$ from todo so that if the map is an epimorphism after realization then it is an epimorphism in the generating degrees of $\nu^2F$-homology.
+\end{proof}
+
+As a result of our corollaries we have shown that realization restricts as
+\[
+\Theta:(\tau^{-1}\Syn_{E,F})^\fp \to (\tau^{-1}\Syn_E)^\fp_{\tau^{-1}\nu F}\simeq \Sp^\fp_F
+\]
+providing a morphsim of sites into the site defining $\Syn_F$. The final claim of Lemma todo can then be rephrased as stating that this morphism of sites reflects covers. This induces an adjunction:
+\[
+\Theta^*: \Sh^\Sp_\Sigma((\tau^{-1}\Syn_{E,F})^\fp) \leftrightarrows \Syn_F:\Theta_*.
+\]
+whose left adjoint is symmetric monoidal and whose right adjoint is lax monoidal, preserves colimits, and is t-exact by \cite[Prop. 2.22, Rem. 2.23]{Pst22}. We will now show that this adjunction is an equivalence. The functor $\Theta_*$ is easy to describe, it is given by precomposition. The left adjoint is characterized as the unique colimit preserving functor such that $\Theta^*(\Sigma^\infty_+y(X))\simeq \Sigma_+^\infty y(\Theta(X))$.
+
+\begin{proposition}
+  The pair $(\Theta^*,\Theta_*)$ form an adjoint equivalence which is symmetric monoidal by construction.
+\end{proposition}
+
+\begin{proof}
+  We first show that $\Theta^*$ is essentially surjective. The category $\Syn_F$ is generated by the objects $\nu_F P$ where $P\in \Sp^\fp_F$. But we know that for any such $P$ we have $\Theta^*\Sigma^\infty_+(y(\nu^2P))\simeq $ TODO: Easy I think if cellular.
+\end{proof}
+
+\begin{proposition}
+  The site $(\tau^{-1}\Syn_{E,F})^\fp$ recovers $\tau^{-1}\Syn_{E,F}$, i.e. there is a symmetric monoidal equivalence 
+  \[
+    \Sh_\Sigma^\Sp((\tau^{-1}\Syn_{E,F})^\fp) \simeq \tau^{-1}\Syn_{E,F}
+  \]
+  induced by the Yoneda embedding.
+\end{proposition}
+
+\newpage
 
 \begin{lemma}
   Suppose that $X\in \Syn_{E,F}$ is $\tau$-local. Then there is an isomorphism
@@ -842,10 +892,6 @@ Our proof of Theorem \ref{thm:taulocal} will proceed first by showing that the s
 
 \begin{proof}
   It follows from todo that we have an isomorphism $\pi_{t,w,v}X\cong \pi_{t,w}\Re^E(X)$ in positive $F$-Chow degree.
-\end{proof}
-
-\begin{proof}
-  
 \end{proof}
 
 \begin{lemma}
@@ -1128,8 +1174,8 @@ This result is what motivates naming this $t$-structure after $F$. As a conseque
     Consider the homology calculation
 \begin{equation*}
     \begin{aligned}
-        \nu^2F_{*,*,*}\mu_FY &\cong \mu_F(\nu F\otimes Y)_{*,*,*} \\
-        &\cong \nu F_{*,*} Y[\lambda]\, ,
+        \nu^2F_{t,w,v}\mu_FY &\cong \mu_F(\nu F\otimes Y)_{t,w,v} \\
+        &\cong \nu F_{t,w} Y[\lambda]\, ,
     \end{aligned}
 \end{equation*}
 where $\nu F_{k,w} Y$ lives in tridegree $(k,w,k)$. The first isomorphism follows from (lemma in Section 2 about when $\mu_F$ is symmetric monoidal) and the second isomorphism follows (lemma in Section 2 about homotopy of $\nu F$-module). The result then follows from Corollary~\ref{F_chow_degree_cor}.
