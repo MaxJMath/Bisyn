@@ -618,10 +618,33 @@ Having established the necessary categorical preliminaries, the remainder of thi
 \begin{convention}\label{conv:eandf}
   We will fix two Adams-type ring spectra $E,F$ satisfying the following additional assumptions:
   \begin{enumerate}
-      \item The $E$-Adams spectral sequence for $F$ has no nonzero differentials.
-      \item Some flatness hypothesis?
+      \item The spectrum $E$ is a homotopy ring spectrum and $E\to F$ is a homotopy $E$-algebra.
   \end{enumerate}
 \end{convention}
+
+\begin{lemma}
+  Under the above assumptions, if $X$ is a spectrum such that $E_*X$ is projective over $E_*$, then there is an isomorphism $F_*X=E_*X\otimes_{E_*}F_*$. As a result, there is an inclusion of sites $\Sp^\fp_E\hookrightarrow \Sp^\fp_F$.
+\end{lemma}
+
+\begin{proof}
+  There is a universal coefficient spectral sequence
+  \[
+    \Tor_{E_*}(E_*X, F_*)\Rightarrow F_*X
+  \]
+  which collapses to its edge homomorphism as we assumed $E_*X$ to be projective over $E_*$. This identification will preserve covers, finite generation, and projectivity.
+\end{proof}
+
+\begin{lemma}
+  Suppose that $E\to F$ is as above and $F=\colim F_\alpha$ is as required in the definition of Adams-Type.
+  \begin{enumerate}
+    \item The synthetic spectra $\nu_E(F_\alpha)$ have finitely generated and projective $\nu_E F$-homology.
+    \item If ? then the spectra $\nu_E(F_\alpha)$ are compact as objects of $\Syn_E$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  We assume that we may write $F\simeq \colim_\alpha F_\alpha$ for a filtered diagram such that each $F_\alpha \in \Sp^\fp_F$.
+\end{proof}
 
 \begin{definition}
   The homological context for $(E,F)$-bisynthetic spectra is given by the pair
