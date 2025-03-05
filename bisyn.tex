@@ -84,6 +84,12 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 \newtheorem{notn}[figure]{Notation}
 \newtheorem{rem}[figure]{Remark}
 
+\newtheorem{manualtheoreminner}{Theorem}
+\newenvironment{manualtheorem}[1]{%
+    \renewcommand\themanualtheoreminner{#1}%
+  \manualtheoreminner
+}{\endmanualtheoreminner}
+
 \newcommand{\op}{\mathrm{op}}
 
 \newcommand{\poly}[1]{{#1}[x_1,\ldots,x_n]}
@@ -145,7 +151,8 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 \newcommand{\done}{\textcolor{green}{DONE }}
 
 \newcommand{\anss}{{}^{\mathrm{an}}\mathrm{E}}
-\newcommand{\genanss}{{}^{\mathrm{F}}\mathrm{E}}
+\newcommand{\genanss}[1]{{}^{\mathrm{#1}}\mathrm{E}}
+\newcommand{\fgenanss}{{}^{\mathrm{F}}\mathrm{E}}
 
 \newcommand{\mayss}{{}^{\mathrm{may}}\mathrm{E}}
 \newcommand{\vlines}{\mathrm{VL}}
@@ -288,21 +295,190 @@ sorting=nyt, maxbibnames=20, maxalphanames=99
 
 \begin{document}
 
-\title{Bisynthetic Spectra}
+\title{Bisynthetic Spectra and the Miller Square}
 \author{Maxwell Johnson and Peter Marek}
 
 \maketitle
 
-\section*{To do}
-\begin{itemize}
-    \item Lemma that $\nu_EF_{*,*}(-):(\Syn_E)_{\nu F}^{fp}\to\Comod_{\nu_EF_{*,*}\nu_EF}^{fp}$ is morphism of $\infty$-sites which reflects coverings and admits a common envelope
-    \item Other lemmas about other maps of $\infty$-sites? Or wait to do that later
-    \item Lemma that $\nu_EF_{*,*}\nu_EF$ is Adams Hopf algebroid a la \cite[Def. 3.1]{Pst22}
-    \item Lemma about when $\mu_F$ is symmetric monoidal
-    \item Lemma about homotopy of $\mu_F$-modules being lambda free
-\end{itemize}
+%\section*{To do}
+%\begin{itemize}
+%    \item Lemma that $\nu_EF_{*,*}(-):(\Syn_E)_{\nu F}^{fp}\to\Comod_{\nu_EF_{*,*}\nu_EF}^{fp}$ is morphism of $\infty$-sites which reflects coverings and admits a common envelope
+%    \item Other lemmas about other maps of $\infty$-sites? Or wait to do that later
+%    \item Lemma that $\nu_EF_{*,*}\nu_EF$ is Adams Hopf algebroid a la \cite[Def. 3.1]{Pst22}
+%    \item Lemma about when $\mu_F$ is symmetric monoidal
+%    \item Lemma about homotopy of $\mu_F$-modules being lambda free
+%\end{itemize}
 
 \tableofcontents
+
+\section{Introduction}
+
+Few problems are as central to the field of algebraic topology as computing the stable homotopy groups of spheres. Although the problem remains--and likely will remain--infinitely far from a complete solution. Despite this, we still understand these groups today far better than when they first introduced; key to this progress has been the Adams Spectral Sequence. 
+
+The Adams spectral sequence is a tool for computing homotopy groups starting from the homological algebra of a generalized homology theory. Explicitly, to a suitable ring spectrum $E$ the Adams spectral sequence is an associated spectral sequence of signature
+\[
+  \Ext_{E_*E}(E_*,E_*) \Rightarrow \pi_*(\bS^\wedge_E)
+\]
+where the spectrum on the right is a completion of the sphere with respect to the theory $E$. Not all choices are created equal, however, and by far the Adams spectral sequences we understand best are those associated to the choice $E=\bF_p$, known as the classical Adams spectral sequence, and the choice $E=\MU$, the Adams-Novikov spectral sequence. 
+
+The two theories are intimiatley connected by the Thom reduction map $\MU\to \bF_p$. This map is one of rings, and as a result induces a map of filtrations and therefore spectral sequences
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGdlbmFuc3N7XFxNVX1fciJdLFswLDEsIlxccGlfKihcXGJTKSJdLFsxLDEsIlxccGlfKihcXGJTXlxcd2VkZ2VfcCkiXSxbMSwwLCJcXGdlbmFuc3N7XFxiRl9wfV9yIl0sWzAsMSwiIiwwLHsibGV2ZWwiOjJ9XSxbMywyLCIiLDAseyJsZXZlbCI6Mn1dLFswLDNdLFsxLDJdXQ==
+\[\begin{tikzcd}
+	{\genanss{\MU}_r} & {\genanss{\bF_p}_r} \\
+	{\pi_*(\bS)} & {\pi_*(\bS^\wedge_p)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[Rightarrow, from=1-1, to=2-1]
+	\arrow[Rightarrow, from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\].
+
+However, this comparison map is of limited use. While it is compatible with the filtration, classes can "jump" filtration: a nonzero class $\{x\}\in \genanss{\MU}$ which detects an essential $x\in \pi_*(\bS)$ might have trivial image in $\genanss{\bF_p}$ and $x$ itself may not be detected until some class $\{x'\}$ shows up in higher filtraiton. This happens often in practice; we would like a more robust approach to transfering information between the two tools.
+
+\subsection{The Miller Square}
+
+In studying the homotopy groups of spheres and their connection to the theory $\MU$, algebraic topologists discovered that the classes could be organized by a so-called "chromatic" filtration. Recalling that after localizing at a prime $p$ complex cobordism $\MU$ breaks up as theories $\BP$ with $\BP_*=\bZ_{(p)}[v_1,v_2,...]$, chromatic homotopy theory may be understood as studying the sphere locally against the rising ideals $I_n=(p,v_1,v_2,...,v_{n-1})$. It turns out there are two a priori natural ways to do this. The first is to fix a finite complex $V$ supporting a nontrivial $v_n$-self map and localize with respect to the theory $T(n)=v_n^{-1}V$. The second is to localize against the Morava $K$-theories $K(n)$ which satisfy $\pi_*K(n)=\bF_p[v_n]$. There are natural comparison maps
+\[
+  X\to L_{T(n)}X\to L_{K(n)}X
+\]
+and the telescope conjecture asks when this second map is an equivalence for finite spectra $X$.
+
+We now know that in general this map fails to be an equivalence, c.f. \cite{todo}. However, when $n=1$ it turns out to always hold. This was shown first for $p=2$ by \cite{todo} and later for $p>2$ by Miller \cite{todo}. The latter's solution resulted in and dependended on the titular square.
+
+Recall from above that the classical Adams and the Adams-Novikov spectral sequences have $E_2$-pages given by $\Ext_{\MU_*\MU}(\MU_*,\MU_*)$ and $\Ext_{\cA}(\bF_p,\bF_p)$ respectively. One approach to studying these $\Ext$ groups is to produce an auxiliarry filtration resulting in a spectral sequencing converging to the approriate Adams $E_2$ page. We will be particularly interested in two such spectral sequences, one for $E=\bF_p$ and one for $E=\MU$. To describe them, first recall that the dual Steenrod algebra takes the form
+\[
+\cA_* =\begin{cases}
+    \bF_p[\xi_1,\xi_2,...] & p=2\\
+    \bF_p[\xi_1,\xi_2,...] \otimes \bF_p\langle \tau_0,\tau_1,...\rangle & p >2
+\end{cases}
+\]
+Let $\cP_*\subset \cA_*$ denote the subalgebra $\bF_p[\xi_1^2,\xi_2^2,...]$ at $p=2$ and $\bF_p[\xi_1,\xi_2,...]$ when $p>2$. The inclusion $\cP_*\hookrightarrow \cA_*$ induces an extension of Hopf algebras
+\[
+  \cP_* \to \cA_* \to \cE_*
+\]
+where $\cE_*$ is exterior on countable many generators as an algebra. The extension induces a Cartan-Eilenberg \cite{todo} type spectral sequence of signature
+\[
+  \Ext_{\BP_*\BP}(\bF_p, \Ext_{\cE}(\bF_p,\bF_p))\Rightarrow \Ext_{\cA_*}(\bF_p,\bF_p) =\genanss{\bF_p}_2.
+\]
+Because $\cE$ is exterior we in addition have $\Ext_{\cE}(\bF_p,\bF_p)=\bF_p[q_0,q_1,...]$. Similarly recall that 
+\[
+  \BP_*\BP=\BP_*[t_1,t_2,...]
+\]
+and that the map $\BP_*\BP\to \cA_*$ induced by the Thom reduction takes the generators $t_i$ to the polynomial generators of $\cP_*$ of the same index. Let us abuse notation to denote the generators of $\cP_*$ by $t_i$ in either case. This morphism is clearly surjective onto its image and has kernel the ideal $I=(p,v_1,v_2,...)\subset \BP_*$.
+
+
+When $E=\bF_p$ we use the Cartan-Eilenberg spectral sequence. The $I=(p,v_1,v_2,...)$-adic filtration on the Hopf algebroid $\BP_*\BP$ then induces a spectral sequence of signature
+\[
+  \bigoplus_k \Ext_{\BP_*\BP/I}(\BP_*/I,I^k/I^{k+1})\Rightarrow \Ext_{\BP_*\BP}(\BP_*,\BP_*) = \genanss{\MU}_2.
+\]
+Taking the sum across all $k$, we have $\oplus_k I^k/I^{k+1}=\bF_p[q_0,q_1,...]$ and as a result we have an isomorphism between the $E_2$ pages of the Cartan-Eilenberg and the algebraic Novikov. The Miller square is then the square of spectral sequences
+% https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXEV4dF97XFxjUF8qfShcXGJGX3AsIFxcYkZfcFtxXzAscV8xLC4uLl0pIl0sWzIsMSwiXFxFeHRfe1xcY0F9KFxcYkZfcCxcXGJGX3ApIl0sWzEsMiwiXFxwaV8qKFxcYlNeXFx3ZWRnZV9wKSJdLFswLDEsIlxcRXh0X3tcXEJQXypcXEJQfShcXEJQXyosXFxCUF8qKSJdLFsxLDIsIlxcdGV4dHtjbGFzc2ljYWwgQWRhbXN9IiwwLHsibGV2ZWwiOjJ9XSxbMCwxLCJcXHRleHR7Q2FydGFuLUVpbGVuYmVyZ30iLDAseyJsZXZlbCI6Mn1dLFswLDMsIlxcdGV4dHthbGcuIE5vdn0iLDIseyJsZXZlbCI6Mn1dLFszLDIsIlxcdGV4dHtBZGFtcy1Ob3Zpa292fSIsMix7ImxldmVsIjoyfV1d
+\[\begin{tikzcd}
+	& {\Ext_{\cP_*}(\bF_p, \bF_p[q_0,q_1,...])} \\
+	{\Ext_{\BP_*\BP}(\BP_*,\BP_*)} && {\Ext_{\cA}(\bF_p,\bF_p)} \\
+	& {\pi_*(\bS^\wedge_p)}
+	\arrow["{\text{alg. Nov}}"', Rightarrow, from=1-2, to=2-1]
+	\arrow["{\text{Cartan-Eilenberg}}", Rightarrow, from=1-2, to=2-3]
+	\arrow["{\text{Adams-Novikov}}"', Rightarrow, from=2-1, to=3-2]
+	\arrow["{\text{classical Adams}}", Rightarrow, from=2-3, to=3-2]
+\end{tikzcd}\]
+which provides a new comparison between our spectral sequences.
+
+\begin{remark}
+  One common heuristic in computational stable homotopy theory is that the classical Adams is best used at $p=2$ and the Adams-Novikov at $p>2$. This intuition can be made precise by the Miller square: when $p>2$ the Cartan-Eilenberg spectral sequence collapses for degree reasons and as a result, the classical Adams differentials have to remove all of the error between $\Ext$ over the dual Steenrod algebra and $\pi_*(\bS^\wedge_p)$. The algebraic Novikov spectral sequence however does not collapse at $p>2$ and therefore if one can begin directly with $\Ext$ over $\BP_*\BP$ then a good portion of the work has already been done for them by the algebraic Novikov.
+\end{remark}
+
+The above remark is key to Miller's resolution of the height one telescope conjecture at odd primes. His key technical input which takes advantage of the square allows us to transfer differentials from the top left edge to the bottom right.
+
+\begin{theorem}[Miller]
+  Every $z\in \Ext_{\cA}(\bF_p,\bF_p)$ has a Cartan-Eilenberg representative $\{z\}$ whose algebraic Novikov target $d_2^{\text{aN}}(\{z\})$ detects $-d^{\bF_p}_2(z)$ in the Cartan-Eilenberg spectral sequence.
+\end{theorem}
+
+When the Cartan-Eilenberg collapses, then, the work of choosing Cartan-Eilenberg representatives is done for us and we may compute Adams $d_2$-differentials by computing the (relatively easier) algebraic Novikov differentials on their Cartan-Eilenberg representatives. We prove a strengthening of this theorem:
+
+\begin{manualtheorem}{A}
+  \label{thm:A}
+  Every $z\in \Ext_{\cA}(\bF_p,\bF_p)$ has a Cartan-Eilenberg representative $\{z\}$ whose algebraic Novikov target $d_r^{\text{aN}}(\{z\})$ detects $-d^{\bF_p}_r(z)$ in the Cartan-Eilenberg spectral sequence.
+\end{manualtheorem}
+
+\textcolor{orange}{This is probably not true as stated just a placeholder while I write the intro. Also TODO: Figure out what BX adds to this story concretely.}
+
+\subsection{Synthetic Spectra and Categorification}
+
+We prove Theorem \ref{thm:A} by way of categorification. In \cite{Pst22} Pstragowski associated to suitable ring spectra $E$ a category $\Syn_E$ of $E$-synthetic spectra. Each $E$-synthetic spectrum encodes both the data of a classical spectrum and its homotopy, as well as a spectral sequence computing those homotopy groups. In particular, each classical spectrum $X$ has a functorially associated synthetic analog $\nu_EX$ which encodes both the homotopy groups of $X$ and the $E$-Adams spectral sequence for $X$.
+
+We generalize this construction and produce a category $\Syn_{E,F}$ associated to a pair of rings $E,F$ assumed to have certain compatibility. As a result, we form a square of categories:
+% https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXFN5bl97XFxNVSxcXEZfcH0iXSxbMiwxLCJcXFN5bl97XFxiRl9wfSJdLFswLDEsIlxcU3luX3tcXE1VfSJdLFsxLDIsIlxcU3AiXSxbMiwzXSxbMSwzXSxbMCwyXSxbMCwxXSxbMiwwLCIiLDEseyJvZmZzZXQiOi0zfV0sWzEsMCwiIiwxLHsib2Zmc2V0IjozfV0sWzMsMSwiIiwyLHsib2Zmc2V0IjozfV0sWzMsMiwiIiwyLHsib2Zmc2V0IjotM31dXQ==
+\[\begin{tikzcd}
+	& {\Syn_{\MU,\bF_p}} \\
+	{\Syn_{\MU}} && {\Syn_{\bF_p}} \\
+	& \Sp
+	\arrow[from=1-2, to=2-1]
+	\arrow[from=1-2, to=2-3]
+	\arrow[shift left=3, from=2-1, to=1-2]
+	\arrow[from=2-1, to=3-2]
+	\arrow[shift right=3, from=2-3, to=1-2]
+	\arrow[from=2-3, to=3-2]
+	\arrow[shift left=3, from=3-2, to=2-1]
+	\arrow[shift right=3, from=3-2, to=2-3]
+\end{tikzcd}\]
+in which we go up by taking synthetic analogs and go down by passing to underlying spectra or synthetic spectra. The original categories $\Syn_E$ can be viewed as deformations of spectra. They contain a parameter $\tau$ that when inverted recovers the category of spectra and when killed is closed related to derived stable comodules over the Hopf algebroid $E_*E$; we write
+\[
+\Syn_E[\tau^{-1}] \simeq \Sp\;\;\text{ and }\;\;\Syn_E/\tau \hookrightarrow \Stable(E_*E).
+\]
+Ignoring the difference between the latter two categories momentarily, we may summarize this information in a table in which the top row specifies the value of $\tau$.
+
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{|l|l|l|}
+  \hline
+      $\tau$ & $1$ & $0$ \\ \hline
+      $\Syn_E$ & $\Sp$ & $\Stable(E_*E)$ \\ \hline
+  \end{tabular}
+\end{table}
+
+We show that our category of Bisynthetic Spectra is suitably similar, then, to the category of Synthetic Spectra:
+
+\begin{manualtheorem}{B}
+  The category $\Syn_{E,F}$ is presentably symmetric monoidal and stable. It contains parameters $\tau$ and $\lambda$, associated to $E$ and $F$ respectively, resulting in specializations where the algebraic $= 0$ specializations are in general only fully faithful inclusions.
+  \begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+        ~ & $\tau$ & $1$ & $0$ \\ \hline
+        $\lambda$ & $\Syn_{E,F}$ & $\Syn_F$ & $\Stable(E_*E)$ \\ \hline
+        $1$ & $\Syn_E$ & $\Sp$ & $\Stable(\nu_FE_{**}\nu_FE)$ \\ \hline
+        $0$ & $\Stable(\nu_EF_{**}\nu_EF)$ & $\Stable(F_*F)$ & $\Stable(E_*F)$ \\ \hline
+    \end{tabular}
+  \end{table}
+\end{manualtheorem}
+
+\textcolor{orange}{Bottom right is obviously speculative but I just wrote it to see how it feels. Also I cannot get this table to show up where I want it.}
+
+\subsection{The Diagonal Spectral Sequence}
+
+The parameters $\tau,\lambda$ above arise as certain (graded) self-maps of the $\otimes$-unit $\bS^{0,0,0}$ in the category $\Syn_{E,F}$. In \cite{Pst22} it is shown that the $\tau$-Bockstein spectral sequence
+\[
+\pi_{*,*}(\bS^{0,0}/\tau)[\tau] \cong \Ext_{E_*E}(E_*,_E*)[\tau] \Rightarrow \pi_{*,*}(\bS)
+\]
+is a \textit{rigid} deformation of the $E$-Adams spectral sequence. In the category of bisynthetic spectra, then, we may consider the Cartesian square
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJTLyhcXHRhdVxcbGFtYmRhKSJdLFsxLDAsIlxcYlMvXFx0YXUiXSxbMCwxLCJcXGJTL1xcbGFtYmRhIl0sWzEsMSwiXFxiU157MCwwLDB9L1xcdGF1XFxvdGltZXMgXFxiU157MCwwLDB9L1xcbGFtYmRhIl0sWzAsMV0sWzAsMl0sWzIsM10sWzEsM11d
+\[\begin{tikzcd}
+	{\bS/(\tau\lambda)} & {\bS/\tau} \\
+	{\bS/\lambda} & {\bS^{0,0,0}/\tau\otimes \bS^{0,0,0}/\lambda}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+as well as the $\tau\lambda$ Bockstein spectral sequence
+\[
+\pi_{***}(\bS^{0,0,0}/(\tau\lambda))[\tau\lambda]\Rightarrow \pi_{***}(\bS^{0,0,0})
+\]
+\begin{manualtheorem}{C}
+  Some collection of statements about this Spectral sequence lol
+\end{manualtheorem}
+
 
 
 \section{Categorical Preliminaries and Generalized Synthetic Spectra}
